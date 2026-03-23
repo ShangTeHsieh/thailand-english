@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>謝上德｜出國英文衝刺手冊 · 泰國篇</title>
+<style>
+  :root {
+    --navy:#1B2A4A; --gold:#D4A843; --teal:#2A7F8F; --purple:#6B3FA0;
+    --green:#2A6B3A; --red:#8B3A2A; --amber:#B8860B; --indigo:#2D3A8C;
+    --bg:#F0F4F8; --white:#FFFFFF; --muted:#5A6A7A; --ice:#CADCFC;
+    --radius:12px; --shadow:0 4px 18px rgba(0,0,0,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,'Microsoft JhengHei',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh}
+
+  /* ── HEADER ─────────────────────────────────────────── */
+  header{background:var(--navy);padding:20px 24px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+  .header-inner{max-width:960px;margin:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .logo{font-size:1.5rem;font-weight:900;color:var(--white);letter-spacing:-0.5px}
+  .logo span{color:var(--gold)}
+  .subtitle{font-size:.8rem;color:var(--ice);margin-top:2px}
+  .day-badge{margin-left:auto;background:var(--gold);color:var(--navy);padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:700;white-space:nowrap}
+
+  /* ── NAV TABS ────────────────────────────────────────── */
+  nav{background:var(--white);border-bottom:2px solid #e2e8f0;overflow-x:auto;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  .nav-inner{max-width:960px;margin:auto;display:flex;white-space:nowrap}
+  nav button{flex:none;padding:14px 18px;border:none;background:none;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;transition:.2s;font-family:inherit}
+  nav button.active{color:var(--navy);border-bottom-color:var(--gold)}
+  nav button:hover{color:var(--navy)}
+
+  /* ── MAIN ────────────────────────────────────────────── */
+  main{max-width:960px;margin:auto;padding:24px 16px 60px}
+  .scene{display:none}
+  .scene.active{display:block}
+
+  /* ── SCENE HERO ──────────────────────────────────────── */
+  .scene-hero{border-radius:var(--radius);padding:28px 28px 24px;margin-bottom:24px;color:var(--white);position:relative;overflow:hidden}
+  .scene-hero::before{content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .scene-hero::after{content:'';position:absolute;right:40px;bottom:-50px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.05)}
+  .hero-icon{font-size:3rem;margin-bottom:8px;position:relative;z-index:1}
+  .hero-title{font-size:1.5rem;font-weight:900;position:relative;z-index:1}
+  .hero-sub{font-size:.9rem;opacity:.85;margin-top:4px;font-style:italic;position:relative;z-index:1}
+  .hero-progress{margin-top:14px;position:relative;z-index:1}
+  .prog-label{font-size:.75rem;opacity:.8;margin-bottom:6px}
+  .prog-bar{height:6px;background:rgba(255,255,255,.25);border-radius:3px}
+  .prog-fill{height:100%;border-radius:3px;background:var(--gold);transition:width .5s}
+
+  /* ── SECTION HEADER ─────────────────────────────────── */
+  .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;margin-top:24px}
+  .sec-pill{background:var(--navy);color:var(--white);padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:700}
+  .sec-title{font-size:1rem;font-weight:700;color:var(--navy)}
+
+  /* ── FLASHCARDS ──────────────────────────────────────── */
+  .card-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:10px}
+  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.13)}
+  .card-front{padding:16px 20px;display:flex;align-items:center;gap:14px}
+  .card-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--white);flex-shrink:0}
+  .card-text{font-size:1rem;font-weight:600;color:var(--navy);flex:1}
+  .card-text em{color:var(--muted);font-style:normal;font-size:.85rem;display:block;margin-top:3px;font-weight:400}
+  .card-toggle{font-size:1.1rem;color:var(--muted);transition:transform .25s}
+  .card-back{display:none;padding:0 20px 18px 66px;animation:fadeIn .2s}
+  .card.open .card-toggle{transform:rotate(180deg)}
+  .card.open .card-back{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .tip-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:.88rem;color:var(--muted)}
+  .tip-row strong{color:var(--navy)}
+  .tip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px}
+
+  /* ── VOCAB CHIPS ─────────────────────────────────────── */
+  .vocab-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+  .chip{padding:8px 16px;border-radius:20px;font-size:.85rem;font-weight:700;border:2px solid;cursor:pointer;transition:.15s;user-select:none}
+  .chip:hover{opacity:.8}
+  .chip.flipped{color:var(--white)!important;border-color:transparent!important}
+
+  /* ── DIALOGUE ────────────────────────────────────────── */
+  .dialogue{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+  .bubble{max-width:88%;padding:12px 16px;border-radius:var(--radius);font-size:.9rem;line-height:1.5}
+  .bubble.officer{background:#E8EDF2;align-self:flex-start;border-bottom-left-radius:4px}
+  .bubble.you{color:var(--white);align-self:flex-end;border-bottom-right-radius:4px}
+  .bubble .who{font-size:.72rem;font-weight:700;opacity:.7;margin-bottom:4px;text-transform:uppercase}
+
+  /* ── QUIZ ────────────────────────────────────────────── */
+  .quiz-card{background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);text-align:center}
+  .quiz-q{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:20px;line-height:1.5}
+  .quiz-options{display:flex;flex-direction:column;gap:10px}
+  .quiz-opt{padding:12px 20px;border:2px solid #e2e8f0;border-radius:10px;background:var(--white);font-size:.9rem;cursor:pointer;text-align:left;transition:.15s;font-family:inherit;color:var(--navy)}
+  .quiz-opt:hover{border-color:var(--gold);background:#fffbef}
+  .quiz-opt.correct{border-color:#2A6B3A;background:#e8f5e9;color:#1a5c2a}
+  .quiz-opt.wrong{border-color:#8B3A2A;background:#fdecea;color:#6b1a0f}
+  .quiz-feedback{margin-top:18px;padding:12px 16px;border-radius:10px;font-size:.9rem;font-weight:600;display:none}
+  .quiz-feedback.show{display:block}
+  .quiz-feedback.correct{background:#e8f5e9;color:#1a5c2a}
+  .quiz-feedback.wrong{background:#fdecea;color:#6b1a0f}
+  .quiz-next{margin-top:14px;padding:10px 28px;background:var(--navy);color:var(--white);border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;display:none;font-family:inherit}
+  .quiz-next:hover{background:var(--teal)}
+  .quiz-score{text-align:center;font-size:1.1rem;font-weight:700;color:var(--navy);padding:20px;display:none}
+
+  /* ── EMERGENCY SECTION ───────────────────────────────── */
+  .alert-box{background:#fff3cd;border:2px solid var(--amber);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
+  .alert-box .icon{font-size:1.5rem;flex-shrink:0}
+  .alert-box p{font-size:.9rem;color:#5a3e00;line-height:1.5}
+  .alert-box strong{color:var(--amber)}
+
+  /* ── COPY BOX ────────────────────────────────────────── */
+  .copy-section{background:var(--navy);border-radius:var(--radius);padding:20px 20px 16px;margin-top:32px}
+  .copy-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+  .copy-header h3{color:var(--white);font-size:.95rem}
+  .copy-btn{background:var(--gold);color:var(--navy);border:none;padding:7px 18px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+  .copy-btn:hover{background:#c49020}
+  .copy-btn.done{background:#2A6B3A;color:var(--white)}
+  .copy-instructions{color:var(--ice);font-size:.8rem;line-height:1.6;border-top:1px solid rgba(255,255,255,.12);padding-top:12px;margin-top:4px}
+  .copy-instructions code{background:rgba(255,255,255,.12);padding:1px 6px;border-radius:4px;font-size:.78rem}
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media(max-width:600px){
+    .hero-title{font-size:1.25rem}
+    .card-text{font-size:.9rem}
+    nav button{padding:12px 12px;font-size:.78rem}
+    main{padding:16px 12px 50px}
+    .scene-hero{padding:20px 18px 18px}
+    .bubble{max-width:96%}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo">出國英文<span>衝刺手冊</span></div>
+      <div class="subtitle">謝上德 · 49天計畫 · 泰國篇</div>
+    </div>
+    <div class="day-badge">🇹🇭 Day 1 — 機上生存</div>
+  </div>
+</header>
+
+<nav>
+  <div class="nav-inner">
+    <button class="active" onclick="showScene(0,this)">✈ 機上生存</button>
+    <button onclick="showScene(1,this)">🛂 海關對答</button>
+    <button onclick="showScene(2,this)">📶 泰國網卡</button>
+    <button onclick="showScene(3,this)">🆘 突發狀況</button>
+    <button onclick="showScene(4,this)">💼 專業交流</button>
+    <button onclick="showScene(5,this)">🏨 飯店入住</button>
+    <button onclick="showScene(6,this)">🎯 小測驗</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══ SCENE 0: ON THE PLANE ════════════════════════════════════════════ -->
+<section class="scene active" id="scene0">
+  <div class="scene-hero" style="background:var(--teal)">
+    <div class="hero-icon">✈</div>
+    <div class="hero-title">情境一：機上生存</div>
+    <div class="hero-sub">On the Plane · Today's Focus</div>
+    <div class="hero-progress">
+      <div class="prog-label">今日完成度</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:40%"></div></div>
+    </div>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">💬 萬用句型</span><span class="sec-title">Universal Patterns — 點擊展開例句</span></div>
+  <div class="card-stack">
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--teal)">1</div>
+        <div class="card-text">I'll have the [chicken / beef], please.<em>點機上餐 — 填入你的選擇</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>Vegetarian:</strong> Do you have a vegetarian option?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>拒絕:</strong> No thank you, I'll skip the meal.</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>進階:</strong> Is there any MSG / peanuts in this?</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--teal)">2</div>
+        <div class="card-text">Can I have a [Coke], no ice, please?<em>飲料去冰 — 今天已掌握 ✅</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>熱飲:</strong> Can I have a hot tea / coffee, please?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>加量:</strong> Could I have some more water?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>泰文提示:</strong> ไม่ใส่น้ำแข็ง (mai sai nam khaeng) = 去冰</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--teal)">3</div>
+        <div class="card-text">Could I borrow a [blanket / pen]?<em>借用物品 — 今天已掌握 ✅</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>枕頭:</strong> Could I have an extra pillow?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>眼罩:</strong> Do you have an eye mask / earplugs?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>入境卡:</strong> Could I have an arrival card for Thailand?</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--teal)">4</div>
+        <div class="card-text">Where is the lavatory / restroom?<em>找廁所 — 基礎必備</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div>飛機上通常說 lavatory 或 restroom</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>占用燈:</strong> Occupied = 有人，Vacant = 沒人</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">📚 核心單字</span><span class="sec-title">點擊翻面看中文</span></div>
+  <div class="vocab-grid" id="vocab0"></div>
+</section>
+
+<!-- ══ SCENE 1: CUSTOMS ════════════════════════════════════════════════ -->
+<section class="scene" id="scene1">
+  <div class="scene-hero" style="background:var(--purple)">
+    <div class="hero-icon">🛂</div>
+    <div class="hero-title">情境二：海關移民署完整攻略</div>
+    <div class="hero-sub">Full Immigration Playbook · Thailand Edition</div>
+    <div class="hero-progress">
+      <div class="prog-label">準備度</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <div class="icon">⚡</div>
+    <p><strong>關鍵提醒：</strong>入境卡填 <strong>Tourism</strong>，帶好回程機票截圖。不確定要不要申報就說 "No, I have nothing to declare."</p>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">🎭 情境對話</span><span class="sec-title">官員問 → 你回答</span></div>
+  <div class="dialogue">
+    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>What is the purpose of your visit?</div>
+    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>I'm here for sightseeing. I plan to visit Bangkok and Chiang Mai.</div>
+    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>How long will you be staying?</div>
+    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>I'll be staying for 10 days.</div>
+    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>Where will you be staying?</div>
+    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>I'll be staying at [Hotel Name] in Bangkok. Here is my booking confirmation.</div>
+    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>Do you have a return ticket?</div>
+    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>Yes, here it is. I'm flying back on [date].</div>
+    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>Do you have anything to declare?</div>
+    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>No, I have nothing to declare.</div>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
+  <div class="vocab-grid" id="vocab1"></div>
+
+  <div class="sec-header"><span class="sec-pill">💬 備用句型</span></div>
+  <div class="card-stack">
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--purple)">★</div>
+        <div class="card-text">Could you repeat that, please?<em>聽不懂時的救命句</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div>I'm sorry, I don't quite understand. Could you speak more slowly?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>Could you write that down, please?（筆談萬能）</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCENE 2: SIM CARD ════════════════════════════════════════════════ -->
+<section class="scene" id="scene2">
+  <div class="scene-hero" style="background:var(--green)">
+    <div class="hero-icon">📶</div>
+    <div class="hero-title">情境三：泰國網卡辦理完整攻略</div>
+    <div class="hero-sub">Thailand SIM Card Guide · BKK Airport</div>
+    <div class="hero-progress">
+      <div class="prog-label">準備度</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:55%"></div></div>
+    </div>
+  </div>
+
+  <div class="alert-box" style="background:#e8f5e9;border-color:var(--green)">
+    <div class="icon">📍</div>
+    <p style="color:#1a4a2a"><strong>蘇萬納普機場 (BKK)：</strong>入境大廳有 AIS、DTAC、TrueMove H 三家，建議選 <strong>AIS Tourist SIM</strong>（訊號最穩）。要求店員當場設定 APN 並測試網速。</p>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">🎭 情境對話</span></div>
+  <div class="dialogue">
+    <div class="bubble officer"><div class="who">🏪 Staff</div>Hello! Which plan would you like?</div>
+    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>Hi! I'd like a tourist SIM card, please. Which plan is best for 10 days?</div>
+    <div class="bubble officer"><div class="who">🏪 Staff</div>This one is 299 baht — unlimited data for 15 days.</div>
+    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>That sounds good. Does it include a hotspot?</div>
+    <div class="bubble officer"><div class="who">🏪 Staff</div>Can I see your passport?</div>
+    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>Sure, here it is. Could you help me insert the SIM and make sure it's working?</div>
+    <div class="bubble officer"><div class="who">🏪 Staff</div>Of course! What's your phone model?</div>
+    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>It's an iPhone [15]. And could you show me how to set the APN?</div>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
+  <div class="vocab-grid" id="vocab2"></div>
+
+  <div class="sec-header"><span class="sec-pill">🆘 故障排除</span><span class="sec-title">Network Troubleshooting</span></div>
+  <div class="card-stack">
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--green)">!</div>
+        <div class="card-text">My phone has no signal / can't connect.<em>沒有訊號</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div>先試：飛航模式開再關（Airplane mode on/off）</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>問店員：Could you check if the APN setting is correct?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>AIS 客服：1175（英文服務）</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCENE 3: EMERGENCY ══════════════════════════════════════════════ -->
+<section class="scene" id="scene3">
+  <div class="scene-hero" style="background:var(--amber)">
+    <div class="hero-icon">🆘</div>
+    <div class="hero-title">情境五：機上突發狀況（進階練習）</div>
+    <div class="hero-sub">Emergency on Board · Advanced Challenge</div>
+    <div class="hero-progress">
+      <div class="prog-label">難度</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:80%;background:#fff"></div></div>
+    </div>
+  </div>
+
+  <div class="alert-box">
+    <div class="icon">🎯</div>
+    <p>這是今天的<strong>進階挑戰</strong>！以下是你沒有練習過的機上突發情境。試著自己先想想怎麼說，再展開答案。</p>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">💬 突發情境</span><span class="sec-title">Advanced — 先想再看答案</span></div>
+  <div class="card-stack">
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--amber)">A</div>
+        <div class="card-text">你感覺身體不舒服，想請空服員幫忙<em>🤔 你會怎麼說？</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> Excuse me, I'm not feeling well. Could I get some help?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>頭暈：</strong> I feel dizzy and nauseous. Do you have any medication?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>緊急：</strong> I need a doctor. Is there a doctor on board?</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--amber)">B</div>
+        <div class="card-text">你不小心把飲料打翻在座位上<em>🤔 你會怎麼說？</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> I'm so sorry — I spilled my drink. Could I have some napkins / paper towels?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>追加：</strong> Could I also change my seat? My seat is all wet.</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--amber)">C</div>
+        <div class="card-text">旁邊的乘客一直打呼吵到你睡覺<em>🤔 你會怎麼說（問空服員）？</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> Excuse me, is there any other available seat? My neighbor is snoring quite loudly.</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>委婉版：</strong> Could I possibly move to a different seat?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>備用：</strong> Do you have any earplugs?</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front">
+        <div class="card-num" style="background:var(--amber)">D</div>
+        <div class="card-text">你的行李被放進別人的行李廂，空間不夠<em>🤔 你會怎麼說？</em></div>
+        <div class="card-toggle">▼</div>
+      </div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> Excuse me, there's no space in the overhead bin. Could you help me find a spot?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>or：</strong> Could you check if this bag can be stored somewhere else?</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
+  <div class="vocab-grid" id="vocab3"></div>
+</section>
+
+<!-- ══ SCENE 4: PROFESSIONAL ══════════════════════════════════════════ -->
+<section class="scene" id="scene4">
+  <div class="scene-hero" style="background:var(--red)">
+    <div class="hero-icon">💼</div>
+    <div class="hero-title">情境四：專業交流與會議</div>
+    <div class="hero-sub">Professional Exchange · Conference</div>
+    <div class="hero-progress">
+      <div class="prog-label">準備度</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div>
+    </div>
+  </div>
+  <div class="sec-header"><span class="sec-pill">💬 萬用句型</span></div>
+  <div class="card-stack">
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front"><div class="card-num" style="background:var(--red)">1</div><div class="card-text">That presentation was very insightful.<em>稱讚對方的演講</em></div><div class="card-toggle">▼</div></div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div><strong>進階：</strong> I particularly enjoyed your take on [topic]. It was thought-provoking.</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>Could I have your business card / LinkedIn?</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front"><div class="card-num" style="background:var(--red)">2</div><div class="card-text">I have a question regarding [facility management].<em>提問 — 填入你的領域</em></div><div class="card-toggle">▼</div></div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div>How do you handle [energy efficiency] in your projects?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>What's your approach to [ROI measurement]?</div></div>
+      </div>
+    </div>
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front"><div class="card-num" style="background:var(--red)">3</div><div class="card-text">We'd love to explore a collaboration.<em>開啟合作的句子</em></div><div class="card-toggle">▼</div></div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div>Would you be open to a follow-up meeting next week?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>I'll send you our proposal by [date].</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
+  <div class="vocab-grid" id="vocab4"></div>
+</section>
+
+<!-- ══ SCENE 5: HOTEL ══════════════════════════════════════════════════ -->
+<section class="scene" id="scene5">
+  <div class="scene-hero" style="background:var(--indigo)">
+    <div class="hero-icon">🏨</div>
+    <div class="hero-title">情境六：飯店入住與需求</div>
+    <div class="hero-sub">Hotel Check-in · Bangkok</div>
+    <div class="hero-progress">
+      <div class="prog-label">準備度</div>
+      <div class="prog-bar"><div class="prog-fill" style="width:45%"></div></div>
+    </div>
+  </div>
+  <div class="sec-header"><span class="sec-pill">🎭 情境對話</span></div>
+  <div class="dialogue">
+    <div class="bubble officer"><div class="who">🏨 Receptionist</div>Good evening! Do you have a reservation?</div>
+    <div class="bubble you" style="background:var(--indigo)"><div class="who">✈ You</div>Yes, I have a reservation under Hsieh Shang-Te. It's for [3] nights.</div>
+    <div class="bubble officer"><div class="who">🏨 Receptionist</div>Could I see your passport and credit card?</div>
+    <div class="bubble you" style="background:var(--indigo)"><div class="who">✈ You</div>Of course. Could I also get a room on a higher floor with a city view?</div>
+    <div class="bubble officer"><div class="who">🏨 Receptionist</div>What time is checkout?</div>
+    <div class="bubble you" style="background:var(--indigo)"><div class="who">✈ You</div>What is your checkout time? Is late checkout available?</div>
+  </div>
+  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
+  <div class="vocab-grid" id="vocab5"></div>
+  <div class="sec-header"><span class="sec-pill">🔧 問題回報</span></div>
+  <div class="card-stack">
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-front"><div class="card-num" style="background:var(--indigo)">!</div><div class="card-text">The [air-con / hot water] isn't working.<em>設備故障回報模板</em></div><div class="card-toggle">▼</div></div>
+      <div class="card-back">
+        <div class="tip-row"><div class="tip-dot"></div><div>The Wi-Fi in my room is very slow. Could you reset it?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>Could I get extra towels / toiletries?</div></div>
+        <div class="tip-row"><div class="tip-dot"></div><div>Do not disturb — please hang on door or call front desk: "Please don't service my room today."</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCENE 6: QUIZ ═══════════════════════════════════════════════════ -->
+<section class="scene" id="scene6">
+  <div class="scene-hero" style="background:var(--navy)">
+    <div class="hero-icon">🎯</div>
+    <div class="hero-title">每日小測驗</div>
+    <div class="hero-sub">Daily Quiz · Test Your Knowledge</div>
+    <div class="hero-progress">
+      <div class="prog-label">得分進度</div>
+      <div class="prog-bar"><div class="prog-fill" id="quizProgBar" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="quiz-card">
+    <div class="quiz-q" id="quizQ">點擊開始測驗！</div>
+    <div class="quiz-options" id="quizOpts"></div>
+    <div class="quiz-feedback" id="quizFb"></div>
+    <button class="quiz-next" id="quizNext" onclick="nextQuestion()">下一題 →</button>
+    <div class="quiz-score" id="quizScore"></div>
+  </div>
+  <div style="text-align:center;margin-top:16px">
+    <button onclick="startQuiz()" style="padding:10px 28px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit">🔄 重新開始</button>
+  </div>
+</section>
+
+</main>
+
+<!-- COPY SECTION (visible on all pages via footer) -->
+<div style="max-width:960px;margin:0 auto;padding:0 16px 40px">
+  <div class="copy-section">
+    <div class="copy-header">
+      <h3>📥 儲存這個 HTML 檔案</h3>
+      <button class="copy-btn" id="copyBtn" onclick="copyHTML()">複製完整程式碼</button>
+    </div>
+    <div class="copy-instructions">
+      <strong style="color:var(--gold)">如何儲存為 .html 檔案：</strong><br>
+      1. 點擊上方「複製完整程式碼」按鈕<br>
+      2. 開啟任何文字編輯器（記事本、VSCode、TextEdit）<br>
+      3. 貼上 → 存檔時命名為 <code>出國英文衝刺手冊.html</code><br>
+      4. 用瀏覽器直接開啟即可，<strong style="color:var(--gold)">不需要網路</strong>，手機電腦都能用！
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const vocabData = [
+  [ // scene 0: on the plane
+    {en:"Meal Tray",zh:"餐盤"},
+    {en:"Utensils",zh:"餐具"},
+    {en:"Blanket",zh:"毛毯"},
+    {en:"Lavatory",zh:"廁所"},
+    {en:"Turbulence",zh:"亂流"},
+    {en:"Overhead Bin",zh:"頭頂置物箱"},
+    {en:"Cabin Crew",zh:"機組人員"},
+    {en:"Seat Belt",zh:"安全帶"},
+  ],
+  [ // scene 1: customs
+    {en:"Purpose",zh:"目的"},
+    {en:"Duration",zh:"停留期間"},
+    {en:"Declaration",zh:"申報"},
+    {en:"Immigration",zh:"移民署"},
+    {en:"Departure Card",zh:"出境卡"},
+    {en:"Arrival Card",zh:"入境卡"},
+  ],
+  [ // scene 2: SIM
+    {en:"SIM Card",zh:"電話卡"},
+    {en:"No Signal",zh:"沒有訊號"},
+    {en:"APN",zh:"接入點名稱"},
+    {en:"Password",zh:"密碼"},
+    {en:"Hotspot",zh:"行動熱點"},
+    {en:"Unlimited Data",zh:"無限流量"},
+    {en:"Top Up",zh:"儲值"},
+  ],
+  [ // scene 3: emergency
+    {en:"Airsick",zh:"暈機"},
+    {en:"Turbulence",zh:"亂流"},
+    {en:"First Aid",zh:"急救"},
+    {en:"Cabin Crew",zh:"機組員"},
+    {en:"Dizzy",zh:"頭暈"},
+    {en:"Nauseous",zh:"想吐"},
+    {en:"Overhead Bin",zh:"置物箱"},
+  ],
+  [ // scene 4: professional
+    {en:"ROI",zh:"投資報酬率"},
+    {en:"Carbon Footprint",zh:"碳足跡"},
+    {en:"Maintenance",zh:"維護"},
+    {en:"Integration",zh:"整合"},
+    {en:"Collaboration",zh:"合作"},
+    {en:"Proposal",zh:"提案"},
+  ],
+  [ // scene 5: hotel
+    {en:"Reservation",zh:"訂房"},
+    {en:"Check-in",zh:"入住"},
+    {en:"Amenities",zh:"設施"},
+    {en:"Housekeeping",zh:"客房服務"},
+    {en:"Late Checkout",zh:"延遲退房"},
+    {en:"Concierge",zh:"禮賓服務"},
+  ],
+];
+
+const colors = ["var(--teal)","var(--purple)","var(--green)","var(--amber)","var(--red)","var(--indigo)"];
+
+// Build vocab chips
+vocabData.forEach((words, si) => {
+  const container = document.getElementById(`vocab${si}`);
+  if (!container) return;
+  words.forEach(w => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.style.color = colors[si];
+    chip.style.borderColor = colors[si];
+    chip.textContent = w.en;
+    chip.dataset.en = w.en;
+    chip.dataset.zh = w.zh;
+    chip.dataset.flipped = '0';
+    chip.onclick = function() {
+      if (this.dataset.flipped === '0') {
+        this.textContent = w.zh;
+        this.classList.add('flipped');
+        this.style.background = colors[si];
+        this.dataset.flipped = '1';
+      } else {
+        this.textContent = w.en;
+        this.classList.remove('flipped');
+        this.style.background = '';
+        this.dataset.flipped = '0';
+      }
+    };
+    container.appendChild(chip);
+  });
+});
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────
+function showScene(idx, btn) {
+  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('scene' + idx).classList.add('active');
+  btn.classList.add('active');
+  if (idx === 6) startQuiz();
+}
+
+// ── CARD TOGGLE ───────────────────────────────────────────────────────────
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+
+// ── QUIZ ──────────────────────────────────────────────────────────────────
+const questions = [
+  { q:"飛機上要去冰的可樂，你怎麼說？", opts:["Give me Coke without ice.","Can I have a Coke, no ice, please?","I want Coke no ice.","Coke please, no freeze."], ans:1, exp:"'Can I have...' 是最禮貌的請求句型。" },
+  { q:"海關問 'What is the purpose of your visit?'，你應該回答？", opts:["I'm a tourist here.","Sightseeing.","I'm here for sightseeing.","I come to Thailand."], ans:2, exp:"完整句子 'I'm here for sightseeing.' 最專業。" },
+  { q:"要跟店員說幫你把 SIM 卡裝好並測試，怎麼說？", opts:["Put SIM inside please.","Could you help me insert the SIM and test it?","Install my SIM card.","SIM card put in my phone."], ans:1, exp:"'Could you help me...' 是禮貌請求的標準句型。" },
+  { q:"你在飛機上感覺暈機，你會說？", opts:["I'm sick. Help!","Excuse me, I'm not feeling well. Could I get some help?","I have problem.","Where is doctor?"], ans:1, exp:"'I'm not feeling well' 是通用不舒服的表達。" },
+  { q:"'Lavatory' 在飛機上是指什麼？", opts:["出口","廁所","行李廂","安全帶"], ans:1, exp:"Lavatory = 飛機上的廁所，正式用語。" },
+  { q:"飯店 check-in 時說自己有訂房，怎麼說？", opts:["I book room here.","I have reservation under [your name].","My room is booked.","Reservation, my name."], ans:1, exp:"'I have a reservation under [name].' 是標準說法。" },
+  { q:"'I have nothing to declare.' 意思是？", opts:["我什麼都不知道","我沒有需要申報的物品","我不想說話","我沒有行李"], ans:1, exp:"海關申報必備句，表示沒有需要申報的東西。" },
+  { q:"網卡沒訊號時，第一步應該做什麼？", opts:["直接換一張","重新開機，試飛航模式開/關","找警察","打電話給航空公司"], ans:1, exp:"Airplane mode on/off 是最快的基本排除方法。" },
+];
+
+let qIdx = 0, score = 0, answered = false;
+
+function startQuiz() {
+  qIdx = 0; score = 0; answered = false;
+  document.getElementById('quizScore').style.display = 'none';
+  document.getElementById('quizNext').style.display = 'none';
+  document.getElementById('quizFb').className = 'quiz-feedback';
+  document.getElementById('quizFb').textContent = '';
+  document.getElementById('quizProgBar').style.width = '0%';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = questions[qIdx];
+  document.getElementById('quizQ').textContent = `Q${qIdx+1} / ${questions.length}  ${q.q}`;
+  const optsEl = document.getElementById('quizOpts');
+  optsEl.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(i);
+    optsEl.appendChild(btn);
+  });
+  document.getElementById('quizFb').className = 'quiz-feedback';
+  document.getElementById('quizNext').style.display = 'none';
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[qIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, i) => {
+    if (i === q.ans) o.classList.add('correct');
+    else if (i === idx && idx !== q.ans) o.classList.add('wrong');
+  });
+  const fb = document.getElementById('quizFb');
+  if (idx === q.ans) {
+    score++;
+    fb.className = 'quiz-feedback correct show';
+    fb.textContent = '✅ 正確！' + q.exp;
+  } else {
+    fb.className = 'quiz-feedback wrong show';
+    fb.textContent = '❌ 答案是：' + q.opts[q.ans] + '。' + q.exp;
+  }
+  document.getElementById('quizProgBar').style.width = ((score / questions.length) * 100) + '%';
+  document.getElementById('quizNext').style.display = 'inline-block';
+  if (qIdx === questions.length - 1) document.getElementById('quizNext').textContent = '查看結果 🏆';
+}
+
+function nextQuestion() {
+  qIdx++;
+  if (qIdx >= questions.length) {
+    const pct = Math.round(score / questions.length * 100);
+    let emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '💪';
+    document.getElementById('quizQ').textContent = '';
+    document.getElementById('quizOpts').innerHTML = '';
+    document.getElementById('quizFb').className = 'quiz-feedback';
+    document.getElementById('quizNext').style.display = 'none';
+    const scoreEl = document.getElementById('quizScore');
+    scoreEl.style.display = 'block';
+    scoreEl.innerHTML = `${emoji}<br>${score} / ${questions.length} 題正確<br><span style="font-size:.9rem;color:var(--muted)">得分 ${pct}% — ${pct>=80?'優秀！繼續保持':pct>=60?'不錯！再多練習':'加油！明天再挑戰'}`;
+  } else {
+    renderQuestion();
+  }
+}
+
+// ── COPY HTML ─────────────────────────────────────────────────────────────
+function copyHTML() {
+  const html = document.documentElement.outerHTML;
+  navigator.clipboard.writeText(html).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✅ 已複製！';
+    btn.classList.add('done');
+    setTimeout(() => { btn.textContent = '複製完整程式碼'; btn.classList.remove('done'); }, 3000);
+  }).catch(() => {
+    alert('請手動選取全部頁面原始碼（Ctrl+U 或右鍵→檢視原始碼），然後複製儲存為 .html 檔案。');
+  });
+}
+
+// Init
+startQuiz();
+</script>
+</body>
+</html>
