@@ -1,708 +1,730 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>出國英文衝刺手冊 · 泰國篇</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>49 天英文衝刺導覽</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 <style>
+  /* ── CSS Variables ── */
   :root {
-    --navy:#1B2A4A; --gold:#D4A843; --teal:#2A7F8F; --purple:#6B3FA0;
-    --green:#2A6B3A; --red:#8B3A2A; --amber:#B8860B; --indigo:#2D3A8C;
-    --bg:#F0F4F8; --white:#FFFFFF; --muted:#5A6A7A; --ice:#CADCFC;
-    --radius:12px; --shadow:0 4px 18px rgba(0,0,0,.10);
+    --bg: #0f0e17;
+    --surface: #1a1828;
+    --surface2: #231f35;
+    --accent: #f5a623;
+    --accent2: #e8547a;
+    --teal: #3ec9c9;
+    --text: #fffffe;
+    --text-muted: #a7a9be;
+    --border: rgba(255,255,255,0.07);
+    --radius: 14px;
+    --sidebar-w: 220px;
+    --transition: 0.3s cubic-bezier(.4,0,.2,1);
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Arial,'Microsoft JhengHei',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh}
 
-  /* ── HEADER ─────────────────────────────────────────── */
-  header{background:var(--navy);padding:20px 24px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.3)}
-  .header-inner{max-width:960px;margin:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-  .logo{font-size:1.5rem;font-weight:900;color:var(--white);letter-spacing:-0.5px}
-  .logo span{color:var(--gold)}
-  .subtitle{font-size:.8rem;color:var(--ice);margin-top:2px}
-  .day-badge{margin-left:auto;background:var(--gold);color:var(--navy);padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:700;white-space:nowrap}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── NAV TABS ────────────────────────────────────────── */
-  nav{background:var(--white);border-bottom:2px solid #e2e8f0;overflow-x:auto;scrollbar-width:none}
-  nav::-webkit-scrollbar{display:none}
-  .nav-inner{max-width:960px;margin:auto;display:flex;white-space:nowrap}
-  nav button{flex:none;padding:14px 18px;border:none;background:none;cursor:pointer;font-size:.85rem;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;transition:.2s;font-family:inherit}
-  nav button.active{color:var(--navy);border-bottom-color:var(--gold)}
-  nav button:hover{color:var(--navy)}
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
 
-  /* ── MAIN ────────────────────────────────────────────── */
-  main{max-width:960px;margin:auto;padding:24px 16px 60px}
-  .scene{display:none}
-  .scene.active{display:block}
+  /* ── Top Banner ── */
+  .top-banner {
+    background: linear-gradient(90deg, #1a1828 0%, #2a1f3d 50%, #1a1828 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-  /* ── SCENE HERO ──────────────────────────────────────── */
-  .scene-hero{border-radius:var(--radius);padding:28px 28px 24px;margin-bottom:24px;color:var(--white);position:relative;overflow:hidden}
-  .scene-hero::before{content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
-  .scene-hero::after{content:'';position:absolute;right:40px;bottom:-50px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.05)}
-  .hero-icon{font-size:3rem;margin-bottom:8px;position:relative;z-index:1}
-  .hero-title{font-size:1.5rem;font-weight:900;position:relative;z-index:1}
-  .hero-sub{font-size:.9rem;opacity:.85;margin-top:4px;font-style:italic;position:relative;z-index:1}
-  .hero-progress{margin-top:14px;position:relative;z-index:1}
-  .prog-label{font-size:.75rem;opacity:.8;margin-bottom:6px}
-  .prog-bar{height:6px;background:rgba(255,255,255,.25);border-radius:3px}
-  .prog-fill{height:100%;border-radius:3px;background:var(--gold);transition:width .5s}
+  .banner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    letter-spacing: 0.02em;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 
-  /* ── SECTION HEADER ─────────────────────────────────── */
-  .sec-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;margin-top:24px}
-  .sec-pill{background:var(--navy);color:var(--white);padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:700}
-  .sec-title{font-size:1rem;font-weight:700;color:var(--navy)}
+  .banner-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-  /* ── FLASHCARDS ──────────────────────────────────────── */
-  .card-stack{display:flex;flex-direction:column;gap:12px;margin-bottom:10px}
-  .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}
-  .card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.13)}
-  .card-front{padding:16px 20px;display:flex;align-items:center;gap:14px}
-  .card-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--white);flex-shrink:0}
-  .card-text{font-size:1rem;font-weight:600;color:var(--navy);flex:1}
-  .card-text em{color:var(--muted);font-style:normal;font-size:.85rem;display:block;margin-top:3px;font-weight:400}
-  .card-toggle{font-size:1.1rem;color:var(--muted);transition:transform .25s}
-  .card-back{display:none;padding:0 20px 18px 66px;animation:fadeIn .2s}
-  .card.open .card-toggle{transform:rotate(180deg)}
-  .card.open .card-back{display:block}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-  .tip-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:.88rem;color:var(--muted)}
-  .tip-row strong{color:var(--navy)}
-  .tip-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:5px}
+  .update-badge {
+    background: rgba(245,166,35,0.12);
+    border: 1px solid rgba(245,166,35,0.3);
+    color: var(--accent);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
 
-  /* ── VOCAB CHIPS ─────────────────────────────────────── */
-  .vocab-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
-  .chip{padding:8px 16px;border-radius:20px;font-size:.85rem;font-weight:700;border:2px solid;cursor:pointer;transition:.15s;user-select:none}
-  .chip:hover{opacity:.8}
-  .chip.flipped{color:var(--white)!important;border-color:transparent!important}
+  /* ── Layout ── */
+  .layout {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
 
-  /* ── DIALOGUE ────────────────────────────────────────── */
-  .dialogue{display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
-  .bubble{max-width:88%;padding:12px 16px;border-radius:var(--radius);font-size:.9rem;line-height:1.5}
-  .bubble.officer{background:#E8EDF2;align-self:flex-start;border-bottom-left-radius:4px}
-  .bubble.you{color:var(--white);align-self:flex-end;border-bottom-right-radius:4px}
-  .bubble .who{font-size:.72rem;font-weight:700;opacity:.7;margin-bottom:4px;text-transform:uppercase}
+  /* ── Sidebar ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    flex-shrink: 0;
+    padding: 12px 0;
+  }
 
-  /* ── QUIZ ────────────────────────────────────────────── */
-  .quiz-card{background:var(--white);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);text-align:center}
-  .quiz-q{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:20px;line-height:1.5}
-  .quiz-options{display:flex;flex-direction:column;gap:10px}
-  .quiz-opt{padding:12px 20px;border:2px solid #e2e8f0;border-radius:10px;background:var(--white);font-size:.9rem;cursor:pointer;text-align:left;transition:.15s;font-family:inherit;color:var(--navy)}
-  .quiz-opt:hover{border-color:var(--gold);background:#fffbef}
-  .quiz-opt.correct{border-color:#2A6B3A;background:#e8f5e9;color:#1a5c2a}
-  .quiz-opt.wrong{border-color:#8B3A2A;background:#fdecea;color:#6b1a0f}
-  .quiz-feedback{margin-top:18px;padding:12px 16px;border-radius:10px;font-size:.9rem;font-weight:600;display:none}
-  .quiz-feedback.show{display:block}
-  .quiz-feedback.correct{background:#e8f5e9;color:#1a5c2a}
-  .quiz-feedback.wrong{background:#fdecea;color:#6b1a0f}
-  .quiz-next{margin-top:14px;padding:10px 28px;background:var(--navy);color:var(--white);border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;display:none;font-family:inherit}
-  .quiz-next:hover{background:var(--teal)}
-  .quiz-score{text-align:center;font-size:1.1rem;font-weight:700;color:var(--navy);padding:20px;display:none}
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 
-  /* ── EMERGENCY SECTION ───────────────────────────────── */
-  .alert-box{background:#fff3cd;border:2px solid var(--amber);border-radius:var(--radius);padding:16px 20px;margin-bottom:16px;display:flex;gap:12px;align-items:flex-start}
-  .alert-box .icon{font-size:1.5rem;flex-shrink:0}
-  .alert-box p{font-size:.9rem;color:#5a3e00;line-height:1.5}
-  .alert-box strong{color:var(--amber)}
+  .sidebar-section-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    padding: 14px 18px 6px;
+    font-family: 'JetBrains Mono', monospace;
+  }
 
-  /* ── COPY BOX ────────────────────────────────────────── */
-  .copy-section{background:var(--navy);border-radius:var(--radius);padding:20px 20px 16px;margin-top:32px}
-  .copy-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
-  .copy-header h3{color:var(--white);font-size:.95rem}
-  .copy-btn{background:var(--gold);color:var(--navy);border:none;padding:7px 18px;border-radius:8px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
-  .copy-btn:hover{background:#c49020}
-  .copy-btn.done{background:#2A6B3A;color:var(--white)}
-  .copy-instructions{color:var(--ice);font-size:.8rem;line-height:1.6;border-top:1px solid rgba(255,255,255,.12);padding-top:12px;margin-top:4px}
-  .copy-instructions code{background:rgba(255,255,255,.12);padding:1px 6px;border-radius:4px;font-size:.78rem}
+  .day-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 18px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    transition: background var(--transition), color var(--transition);
+    text-align: left;
+    border-left: 3px solid transparent;
+  }
 
-  /* ── RESPONSIVE ──────────────────────────────────────── */
-  @media(max-width:600px){
-    .hero-title{font-size:1.25rem}
-    .card-text{font-size:.9rem}
-    nav button{padding:12px 12px;font-size:.78rem}
-    main{padding:16px 12px 50px}
-    .scene-hero{padding:20px 18px 18px}
-    .bubble{max-width:96%}
+  .day-btn:hover {
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+  }
+
+  .day-btn.active {
+    background: rgba(245,166,35,0.08);
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 700;
+  }
+
+  .day-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent2);
+    opacity: 0.7;
+    min-width: 28px;
+  }
+
+  .day-btn.active .day-num { opacity: 1; }
+
+  /* ── Main Content ── */
+  .main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* ── Scene Card ── */
+  .scene-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: fadeSlide 0.35s ease forwards;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .scene-hero {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scene-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--hero-bg, linear-gradient(135deg,#1a1828,#2a1f3d));
+    z-index: 0;
+  }
+
+  .scene-emoji {
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5));
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+
+  .scene-body {
+    padding: 22px 24px;
+  }
+
+  .scene-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--teal);
+    background: rgba(62,201,201,0.1);
+    border: 1px solid rgba(62,201,201,0.25);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .scene-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .scene-desc {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  /* ── Phrases Section ── */
+  .phrases-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    animation: fadeSlide 0.4s ease 0.05s both forwards;
+    opacity: 0;
+  }
+
+  .phrases-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .phrases-icon {
+    font-size: 1.2rem;
+  }
+
+  .phrases-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text);
+  }
+
+  .phrase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .phrase-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: border-color var(--transition), transform var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phrase-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    border-radius: 3px 0 0 3px;
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+
+  .phrase-item:hover {
+    border-color: rgba(245,166,35,0.35);
+    transform: translateX(4px);
+  }
+
+  .phrase-item:hover::before { opacity: 1; }
+
+  .phrase-en {
+    font-size: 0.97rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 5px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .phrase-zh {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .phrase-note {
+    font-size: 0.75rem;
+    color: var(--teal);
+    margin-top: 4px;
+    opacity: 0.8;
+  }
+
+  /* ── Tips Card ── */
+  .tips-card {
+    background: linear-gradient(135deg, rgba(245,166,35,0.07), rgba(232,84,122,0.07));
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    animation: fadeSlide 0.45s ease 0.1s both forwards;
+    opacity: 0;
+  }
+
+  .tips-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .tips-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ── Nav Footer ── */
+  .nav-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeSlide 0.5s ease 0.15s both forwards;
+    opacity: 0;
+  }
+
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.83rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+
+  .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .progress-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  .progress-fill {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+    .layout { flex-direction: column; }
+    .main { padding: 20px 16px; }
+    .scene-hero { height: 140px; font-size: 4rem; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <div>
-      <div class="logo">出國英文<span>衝刺手冊</span></div>
-      <div class="subtitle">49天計畫 · 泰國篇</div>
-    </div>
-    <div class="day-badge">🇹🇭 Day 1 — 機上生存</div>
+<!-- ── Top Banner ── -->
+<header class="top-banner">
+  <span class="banner-title">✈️ 49 天英文衝刺計畫</span>
+  <div class="banner-meta">
+    <span class="update-badge">🕐 更新日期：2025-03-25</span>
+    <span style="color:var(--border)">|</span>
+    <span>v1.0.0</span>
   </div>
 </header>
 
-<nav>
-  <div class="nav-inner">
-    <button class="active" onclick="showScene(0,this)">✈ 機上生存</button>
-    <button onclick="showScene(1,this)">🛂 海關對答</button>
-    <button onclick="showScene(2,this)">📶 泰國網卡</button>
-    <button onclick="showScene(3,this)">🆘 突發狀況</button>
-    <button onclick="showScene(4,this)">💼 專業交流</button>
-    <button onclick="showScene(5,this)">🏨 飯店入住</button>
-    <button onclick="showScene(6,this)">🎯 小測驗</button>
-  </div>
-</nav>
+<!-- ── Layout ── -->
+<div class="layout">
 
-<main>
+  <!-- ── Sidebar ── -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-section-label">Week 1 — 出發準備</div>
+    <!-- Buttons injected by JS -->
+  </nav>
 
-<!-- ══ SCENE 0: ON THE PLANE ════════════════════════════════════════════ -->
-<section class="scene active" id="scene0">
-  <div class="scene-hero" style="background:var(--teal)">
-    <div class="hero-icon">✈</div>
-    <div class="hero-title">情境一：機上生存</div>
-    <div class="hero-sub">On the Plane · Today's Focus</div>
-    <div class="hero-progress">
-      <div class="prog-label">今日完成度</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:40%"></div></div>
-    </div>
-  </div>
+  <!-- ── Main ── -->
+  <main class="main" id="main"></main>
 
-  <div class="sec-header"><span class="sec-pill">💬 萬用句型</span><span class="sec-title">Universal Patterns — 點擊展開例句</span></div>
-  <div class="card-stack">
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--teal)">1</div>
-        <div class="card-text">I'll have the [chicken / beef], please.<em>點機上餐 — 填入你的選擇</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>Vegetarian:</strong> Do you have a vegetarian option?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>拒絕:</strong> No thank you, I'll skip the meal.</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>進階:</strong> Is there any MSG / peanuts in this?</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--teal)">2</div>
-        <div class="card-text">Can I have a [Coke], no ice, please?<em>飲料去冰 — 今天已掌握 ✅</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>熱飲:</strong> Can I have a hot tea / coffee, please?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>加量:</strong> Could I have some more water?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>泰文提示:</strong> ไม่ใส่น้ำแข็ง (mai sai nam khaeng) = 去冰</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--teal)">3</div>
-        <div class="card-text">Could I borrow a [blanket / pen]?<em>借用物品 — 今天已掌握 ✅</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>枕頭:</strong> Could I have an extra pillow?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>眼罩:</strong> Do you have an eye mask / earplugs?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>入境卡:</strong> Could I have an arrival card for Thailand?</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--teal)">4</div>
-        <div class="card-text">Where is the lavatory / restroom?<em>找廁所 — 基礎必備</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div>飛機上通常說 lavatory 或 restroom</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>占用燈:</strong> Occupied = 有人，Vacant = 沒人</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-header"><span class="sec-pill">📚 核心單字</span><span class="sec-title">點擊翻面看中文</span></div>
-  <div class="vocab-grid" id="vocab0"></div>
-</section>
-
-<!-- ══ SCENE 1: CUSTOMS ════════════════════════════════════════════════ -->
-<section class="scene" id="scene1">
-  <div class="scene-hero" style="background:var(--purple)">
-    <div class="hero-icon">🛂</div>
-    <div class="hero-title">情境二：海關移民署完整攻略</div>
-    <div class="hero-sub">Full Immigration Playbook · Thailand Edition</div>
-    <div class="hero-progress">
-      <div class="prog-label">準備度</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:65%"></div></div>
-    </div>
-  </div>
-
-  <div class="alert-box">
-    <div class="icon">⚡</div>
-    <p><strong>關鍵提醒：</strong>入境卡填 <strong>Tourism</strong>，帶好回程機票截圖。不確定要不要申報就說 "No, I have nothing to declare."</p>
-  </div>
-
-  <div class="sec-header"><span class="sec-pill">🎭 情境對話</span><span class="sec-title">官員問 → 你回答</span></div>
-  <div class="dialogue">
-    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>What is the purpose of your visit?</div>
-    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>I'm here for sightseeing. I plan to visit Bangkok and Chiang Mai.</div>
-    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>How long will you be staying?</div>
-    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>I'll be staying for 10 days.</div>
-    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>Where will you be staying?</div>
-    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>I'll be staying at [Hotel Name] in Bangkok. Here is my booking confirmation.</div>
-    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>Do you have a return ticket?</div>
-    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>Yes, here it is. I'm flying back on [date].</div>
-    <div class="bubble officer"><div class="who">🛂 Immigration Officer</div>Do you have anything to declare?</div>
-    <div class="bubble you" style="background:var(--purple)"><div class="who">✈ You</div>No, I have nothing to declare.</div>
-  </div>
-
-  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
-  <div class="vocab-grid" id="vocab1"></div>
-
-  <div class="sec-header"><span class="sec-pill">💬 備用句型</span></div>
-  <div class="card-stack">
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--purple)">★</div>
-        <div class="card-text">Could you repeat that, please?<em>聽不懂時的救命句</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div>I'm sorry, I don't quite understand. Could you speak more slowly?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>Could you write that down, please?（筆談萬能）</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SCENE 2: SIM CARD ════════════════════════════════════════════════ -->
-<section class="scene" id="scene2">
-  <div class="scene-hero" style="background:var(--green)">
-    <div class="hero-icon">📶</div>
-    <div class="hero-title">情境三：泰國網卡辦理完整攻略</div>
-    <div class="hero-sub">Thailand SIM Card Guide · BKK Airport</div>
-    <div class="hero-progress">
-      <div class="prog-label">準備度</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:55%"></div></div>
-    </div>
-  </div>
-
-  <div class="alert-box" style="background:#e8f5e9;border-color:var(--green)">
-    <div class="icon">📍</div>
-    <p style="color:#1a4a2a"><strong>蘇萬納普機場 (BKK)：</strong>入境大廳有 AIS、DTAC、TrueMove H 三家，建議選 <strong>AIS Tourist SIM</strong>（訊號最穩）。要求店員當場設定 APN 並測試網速。</p>
-  </div>
-
-  <div class="sec-header"><span class="sec-pill">🎭 情境對話</span></div>
-  <div class="dialogue">
-    <div class="bubble officer"><div class="who">🏪 Staff</div>Hello! Which plan would you like?</div>
-    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>Hi! I'd like a tourist SIM card, please. Which plan is best for 10 days?</div>
-    <div class="bubble officer"><div class="who">🏪 Staff</div>This one is 299 baht — unlimited data for 15 days.</div>
-    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>That sounds good. Does it include a hotspot?</div>
-    <div class="bubble officer"><div class="who">🏪 Staff</div>Can I see your passport?</div>
-    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>Sure, here it is. Could you help me insert the SIM and make sure it's working?</div>
-    <div class="bubble officer"><div class="who">🏪 Staff</div>Of course! What's your phone model?</div>
-    <div class="bubble you" style="background:var(--green)"><div class="who">✈ You</div>It's an iPhone [15]. And could you show me how to set the APN?</div>
-  </div>
-
-  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
-  <div class="vocab-grid" id="vocab2"></div>
-
-  <div class="sec-header"><span class="sec-pill">🆘 故障排除</span><span class="sec-title">Network Troubleshooting</span></div>
-  <div class="card-stack">
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--green)">!</div>
-        <div class="card-text">My phone has no signal / can't connect.<em>沒有訊號</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div>先試：飛航模式開再關（Airplane mode on/off）</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>問店員：Could you check if the APN setting is correct?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>AIS 客服：1175（英文服務）</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SCENE 3: EMERGENCY ══════════════════════════════════════════════ -->
-<section class="scene" id="scene3">
-  <div class="scene-hero" style="background:var(--amber)">
-    <div class="hero-icon">🆘</div>
-    <div class="hero-title">情境五：機上突發狀況（進階練習）</div>
-    <div class="hero-sub">Emergency on Board · Advanced Challenge</div>
-    <div class="hero-progress">
-      <div class="prog-label">難度</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:80%;background:#fff"></div></div>
-    </div>
-  </div>
-
-  <div class="alert-box">
-    <div class="icon">🎯</div>
-    <p>這是今天的<strong>進階挑戰</strong>！以下是你沒有練習過的機上突發情境。試著自己先想想怎麼說，再展開答案。</p>
-  </div>
-
-  <div class="sec-header"><span class="sec-pill">💬 突發情境</span><span class="sec-title">Advanced — 先想再看答案</span></div>
-  <div class="card-stack">
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--amber)">A</div>
-        <div class="card-text">你感覺身體不舒服，想請空服員幫忙<em>🤔 你會怎麼說？</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> Excuse me, I'm not feeling well. Could I get some help?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>頭暈：</strong> I feel dizzy and nauseous. Do you have any medication?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>緊急：</strong> I need a doctor. Is there a doctor on board?</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--amber)">B</div>
-        <div class="card-text">你不小心把飲料打翻在座位上<em>🤔 你會怎麼說？</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> I'm so sorry — I spilled my drink. Could I have some napkins / paper towels?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>追加：</strong> Could I also change my seat? My seat is all wet.</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--amber)">C</div>
-        <div class="card-text">旁邊的乘客一直打呼吵到你睡覺<em>🤔 你會怎麼說（問空服員）？</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> Excuse me, is there any other available seat? My neighbor is snoring quite loudly.</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>委婉版：</strong> Could I possibly move to a different seat?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>備用：</strong> Do you have any earplugs?</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front">
-        <div class="card-num" style="background:var(--amber)">D</div>
-        <div class="card-text">你的行李被放進別人的行李廂，空間不夠<em>🤔 你會怎麼說？</em></div>
-        <div class="card-toggle">▼</div>
-      </div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>標準句：</strong> Excuse me, there's no space in the overhead bin. Could you help me find a spot?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>or：</strong> Could you check if this bag can be stored somewhere else?</div></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
-  <div class="vocab-grid" id="vocab3"></div>
-</section>
-
-<!-- ══ SCENE 4: PROFESSIONAL ══════════════════════════════════════════ -->
-<section class="scene" id="scene4">
-  <div class="scene-hero" style="background:var(--red)">
-    <div class="hero-icon">💼</div>
-    <div class="hero-title">情境四：專業交流與會議</div>
-    <div class="hero-sub">Professional Exchange · Conference</div>
-    <div class="hero-progress">
-      <div class="prog-label">準備度</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:50%"></div></div>
-    </div>
-  </div>
-  <div class="sec-header"><span class="sec-pill">💬 萬用句型</span></div>
-  <div class="card-stack">
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front"><div class="card-num" style="background:var(--red)">1</div><div class="card-text">That presentation was very insightful.<em>稱讚對方的演講</em></div><div class="card-toggle">▼</div></div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div><strong>進階：</strong> I particularly enjoyed your take on [topic]. It was thought-provoking.</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>Could I have your business card / LinkedIn?</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front"><div class="card-num" style="background:var(--red)">2</div><div class="card-text">I have a question regarding [facility management].<em>提問 — 填入你的領域</em></div><div class="card-toggle">▼</div></div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div>How do you handle [energy efficiency] in your projects?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>What's your approach to [ROI measurement]?</div></div>
-      </div>
-    </div>
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front"><div class="card-num" style="background:var(--red)">3</div><div class="card-text">We'd love to explore a collaboration.<em>開啟合作的句子</em></div><div class="card-toggle">▼</div></div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div>Would you be open to a follow-up meeting next week?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>I'll send you our proposal by [date].</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
-  <div class="vocab-grid" id="vocab4"></div>
-</section>
-
-<!-- ══ SCENE 5: HOTEL ══════════════════════════════════════════════════ -->
-<section class="scene" id="scene5">
-  <div class="scene-hero" style="background:var(--indigo)">
-    <div class="hero-icon">🏨</div>
-    <div class="hero-title">情境六：飯店入住與需求</div>
-    <div class="hero-sub">Hotel Check-in · Bangkok</div>
-    <div class="hero-progress">
-      <div class="prog-label">準備度</div>
-      <div class="prog-bar"><div class="prog-fill" style="width:45%"></div></div>
-    </div>
-  </div>
-  <div class="sec-header"><span class="sec-pill">🎭 情境對話</span></div>
-  <div class="dialogue">
-    <div class="bubble officer"><div class="who">🏨 Receptionist</div>Good evening! Do you have a reservation?</div>
-    <div class="bubble you" style="background:var(--indigo)"><div class="who">✈ You</div>Yes, I have a reservation under Hsieh Shang-Te. It's for [3] nights.</div>
-    <div class="bubble officer"><div class="who">🏨 Receptionist</div>Could I see your passport and credit card?</div>
-    <div class="bubble you" style="background:var(--indigo)"><div class="who">✈ You</div>Of course. Could I also get a room on a higher floor with a city view?</div>
-    <div class="bubble officer"><div class="who">🏨 Receptionist</div>What time is checkout?</div>
-    <div class="bubble you" style="background:var(--indigo)"><div class="who">✈ You</div>What is your checkout time? Is late checkout available?</div>
-  </div>
-  <div class="sec-header"><span class="sec-pill">📚 核心單字</span></div>
-  <div class="vocab-grid" id="vocab5"></div>
-  <div class="sec-header"><span class="sec-pill">🔧 問題回報</span></div>
-  <div class="card-stack">
-    <div class="card" onclick="toggleCard(this)">
-      <div class="card-front"><div class="card-num" style="background:var(--indigo)">!</div><div class="card-text">The [air-con / hot water] isn't working.<em>設備故障回報模板</em></div><div class="card-toggle">▼</div></div>
-      <div class="card-back">
-        <div class="tip-row"><div class="tip-dot"></div><div>The Wi-Fi in my room is very slow. Could you reset it?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>Could I get extra towels / toiletries?</div></div>
-        <div class="tip-row"><div class="tip-dot"></div><div>Do not disturb — please hang on door or call front desk: "Please don't service my room today."</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SCENE 6: QUIZ ═══════════════════════════════════════════════════ -->
-<section class="scene" id="scene6">
-  <div class="scene-hero" style="background:var(--navy)">
-    <div class="hero-icon">🎯</div>
-    <div class="hero-title">每日小測驗</div>
-    <div class="hero-sub">Daily Quiz · Test Your Knowledge</div>
-    <div class="hero-progress">
-      <div class="prog-label">得分進度</div>
-      <div class="prog-bar"><div class="prog-fill" id="quizProgBar" style="width:0%"></div></div>
-    </div>
-  </div>
-  <div class="quiz-card">
-    <div class="quiz-q" id="quizQ">點擊開始測驗！</div>
-    <div class="quiz-options" id="quizOpts"></div>
-    <div class="quiz-feedback" id="quizFb"></div>
-    <button class="quiz-next" id="quizNext" onclick="nextQuestion()">下一題 →</button>
-    <div class="quiz-score" id="quizScore"></div>
-  </div>
-  <div style="text-align:center;margin-top:16px">
-    <button onclick="startQuiz()" style="padding:10px 28px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit">🔄 重新開始</button>
-  </div>
-</section>
-
-</main>
-
-<!-- COPY SECTION (visible on all pages via footer) -->
-<div style="max-width:960px;margin:0 auto;padding:0 16px 40px">
-  <div class="copy-section">
-    <div class="copy-header">
-      <h3>📥 儲存這個 HTML 檔案</h3>
-      <button class="copy-btn" id="copyBtn" onclick="copyHTML()">複製完整程式碼</button>
-    </div>
-    <div class="copy-instructions">
-      <strong style="color:var(--gold)">如何儲存為 .html 檔案：</strong><br>
-      1. 點擊上方「複製完整程式碼」按鈕<br>
-      2. 開啟任何文字編輯器（記事本、VSCode、TextEdit）<br>
-      3. 貼上 → 存檔時命名為 <code>出國英文衝刺手冊.html</code><br>
-      4. 用瀏覽器直接開啟即可，<strong style="color:var(--gold)">不需要網路</strong>，手機電腦都能用！
-    </div>
-  </div>
 </div>
 
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────
-const vocabData = [
-  [ // scene 0: on the plane
-    {en:"Meal Tray",zh:"餐盤"},
-    {en:"Utensils",zh:"餐具"},
-    {en:"Blanket",zh:"毛毯"},
-    {en:"Lavatory",zh:"廁所"},
-    {en:"Turbulence",zh:"亂流"},
-    {en:"Overhead Bin",zh:"頭頂置物箱"},
-    {en:"Cabin Crew",zh:"機組人員"},
-    {en:"Seat Belt",zh:"安全帶"},
-  ],
-  [ // scene 1: customs
-    {en:"Purpose",zh:"目的"},
-    {en:"Duration",zh:"停留期間"},
-    {en:"Declaration",zh:"申報"},
-    {en:"Immigration",zh:"移民署"},
-    {en:"Departure Card",zh:"出境卡"},
-    {en:"Arrival Card",zh:"入境卡"},
-  ],
-  [ // scene 2: SIM
-    {en:"SIM Card",zh:"電話卡"},
-    {en:"No Signal",zh:"沒有訊號"},
-    {en:"APN",zh:"接入點名稱"},
-    {en:"Password",zh:"密碼"},
-    {en:"Hotspot",zh:"行動熱點"},
-    {en:"Unlimited Data",zh:"無限流量"},
-    {en:"Top Up",zh:"儲值"},
-  ],
-  [ // scene 3: emergency
-    {en:"Airsick",zh:"暈機"},
-    {en:"Turbulence",zh:"亂流"},
-    {en:"First Aid",zh:"急救"},
-    {en:"Cabin Crew",zh:"機組員"},
-    {en:"Dizzy",zh:"頭暈"},
-    {en:"Nauseous",zh:"想吐"},
-    {en:"Overhead Bin",zh:"置物箱"},
-  ],
-  [ // scene 4: professional
-    {en:"ROI",zh:"投資報酬率"},
-    {en:"Carbon Footprint",zh:"碳足跡"},
-    {en:"Maintenance",zh:"維護"},
-    {en:"Integration",zh:"整合"},
-    {en:"Collaboration",zh:"合作"},
-    {en:"Proposal",zh:"提案"},
-  ],
-  [ // scene 5: hotel
-    {en:"Reservation",zh:"訂房"},
-    {en:"Check-in",zh:"入住"},
-    {en:"Amenities",zh:"設施"},
-    {en:"Housekeeping",zh:"客房服務"},
-    {en:"Late Checkout",zh:"延遲退房"},
-    {en:"Concierge",zh:"禮賓服務"},
-  ],
+// ─────────────────────────────────────────────
+//  DATA — 49 Days
+// ─────────────────────────────────────────────
+const DAYS = [
+  {
+    id: 1, label: "計畫啟動", emoji: "🚀", date: "3/27 (五)",
+    heroBg: "linear-gradient(135deg,#0f0e17,#ff8906)",
+    tag: "計畫核心", title: "Day 01 — 49天衝刺啟動",
+    desc: "今天是 3/27，距離 5/11 ACI 會議還有 49 天。目標：建立每日英語肌肉記憶。",
+    phrases: [
+      { en: "I am ready for the 49-day English challenge.", zh: "我準備好接受 49 天英語挑戰了。" },
+      { en: "My goal is to participate in the ACI conference smoothly.", zh: "我的目標是順利參與 ACI 會議。" }
+    ],
+    tip: "💡 第一天：請將 GitHub 網址設為手機瀏覽器首頁，每天早上刷牙時看一分鐘。"
+  },
+  {
+    id: 2, label: "機上服務", emoji: "✈️", date: "3/28 (六)",
+    heroBg: "linear-gradient(135deg,#0d1b2a,#1b3a5c)",
+    tag: "機場 & 航班", title: "Day 02 — 飛機上 (生存篇)",
+    desc: "搭機前往曼谷，從座位到餐點的反射性回答。",
+    phrases: [
+      { en: "I'll have the chicken meal, please.", zh: "我要雞肉餐，謝謝。" },
+      { en: "Can I have a Coke, no ice, please?", zh: "給我一杯去冰可樂，謝謝。" },
+      { en: "Could I borrow a pen to fill out the form?", zh: "可以借我一支筆填表嗎？" }
+    ],
+    tip: "🥤 泰國篇小技巧：在東南亞航班上，「去冰 (no ice)」是你最常用的單字。"
+  },
+  {
+    id: 3, label: "海關入境", emoji: "🛃", date: "3/29 (日)",
+    heroBg: "linear-gradient(135deg,#1a0a2e,#2d1b69)",
+    tag: "入境 & 邊境", title: "Day 03 — 泰國海關實戰",
+    desc: "面對海關，專業地說明來訪目的。",
+    phrases: [
+      { en: "I am here for the ACI professional conference.", zh: "我是來參加 ACI 專業會議的。" },
+      { en: "I am an electrical engineer from Taiwan.", zh: "我是來自台灣的電氣工程師。" },
+      { en: "I will be staying for 5 days at the [Hotel Name].", zh: "我會在某飯店待 5 天。" }
+    ],
+    tip: "🛂 專業技巧：提到 'Professional Conference' 通常會讓海關對你更客氣。"
+  },
+  {
+    id:4, label:"飯店", emoji:"🏨",
+    heroBg:"linear-gradient(135deg,#1a120b,#3e1f0d)",
+    tag:"住宿 & Check-in", title:"Day 4 — 飯店入住",
+    desc:"順利辦理入住，讓旅途的第一個夜晚舒適安心。",
+    phrases:[
+      { en:"I have a reservation under the name Chen.", zh:"我有訂房，名字是陳。" },
+      { en:"Could I get a room with a city view?", zh:"可以給我一間有城市景觀的房間嗎？" },
+      { en:"Is breakfast included?", zh:"有包含早餐嗎？" },
+      { en:"What time is check-out?", zh:"幾點退房？" },
+      { en:"Could I have an extra towel?", zh:"可以多給我一條毛巾嗎？" },
+    ],
+    tip:"🛎️ 小技巧：入住時主動確認 Wi-Fi 密碼和早餐時間，避免隔天手忙腳亂。"
+  },
+  {
+    id:5, label:"超市", emoji:"🛒",
+    heroBg:"linear-gradient(135deg,#0a1f0a,#1a4a1a)",
+    tag:"購物 & 日用品", title:"Day 5 — 超市採購",
+    desc:"進入當地超市，購買日用品與零食，融入在地生活節奏。",
+    phrases:[
+      { en:"Where is the dairy section?", zh:"乳製品區在哪裡？" },
+      { en:"Do you have a loyalty card?", zh:"你有會員卡嗎？" },
+      { en:"Can I pay by card?", zh:"可以刷卡嗎？" },
+      { en:"Could you give me a bag?", zh:"可以給我一個袋子嗎？" },
+      { en:"Is this on sale?", zh:"這個有特價嗎？", note:"💡 on sale = 特價中" },
+    ],
+    tip:"🛍️ 小技巧：超市購物是練習數字和商品名稱的絕佳場合，大膽開口詢問！"
+  },
+  {
+    id:6, label:"餐廳", emoji:"🍽️",
+    heroBg:"linear-gradient(135deg,#1f0a0a,#4a1010)",
+    tag:"用餐 & 點餐", title:"Day 6 — 餐廳用餐",
+    desc:"走進當地餐廳，自信點餐、提出需求，享受美食時光。",
+    phrases:[
+      { en:"A table for two, please.", zh:"請給我們兩人桌。" },
+      { en:"Could I see the menu?", zh:"可以給我菜單看看嗎？" },
+      { en:"I'm allergic to shellfish.", zh:"我對貝類過敏。", note:"⚠️ 食物過敏務必清楚說明" },
+      { en:"Can I have this without onions?", zh:"這道菜可以不要放洋蔥嗎？" },
+      { en:"Could we get the check, please?", zh:"可以幫我們結帳嗎？" },
+    ],
+    tip:"🍴 小技巧：不懂菜單可以說 'What do you recommend?' 讓服務生幫你推薦！"
+  },
+  {
+    id:7, label:"捷運", emoji:"🚇",
+    heroBg:"linear-gradient(135deg,#0a0a1f,#1a1a5c)",
+    tag:"大眾交通", title:"Day 7 — 搭乘捷運",
+    desc:"掌握大眾運輸英文，在陌生城市也能自由穿梭。",
+    phrases:[
+      { en:"Which line goes to downtown?", zh:"哪條線去市中心？" },
+      { en:"How many stops is it?", zh:"要幾站？" },
+      { en:"Do I need to transfer?", zh:"需要轉乘嗎？" },
+      { en:"Could you tell me when we reach Central Station?", zh:"可以告訴我到中央車站時嗎？" },
+      { en:"Is this the right platform for Line 2?", zh:"這是2號線的月台嗎？" },
+    ],
+    tip:"🚉 小技巧：先下載好當地交通 App，對照英文站名再問路，事半功倍。"
+  },
+  {
+    id:8, label:"咖啡廳", emoji:"☕",
+    heroBg:"linear-gradient(135deg,#1a0f00,#4a2c00)",
+    tag:"咖啡 & 輕食", title:"Day 8 — 咖啡廳時光",
+    desc:"來一杯手沖咖啡，練習點飲品和外帶的英文對話。",
+    phrases:[
+      { en:"Can I get a medium latte, please?", zh:"我要一杯中杯拿鐵，謝謝。" },
+      { en:"Is it for here or to go?", zh:"內用還是外帶？", note:"💡 to go / takeaway = 外帶" },
+      { en:"Can I have oat milk instead?", zh:"可以換成燕麥奶嗎？" },
+      { en:"Do you have any vegan options?", zh:"有純素的選擇嗎？" },
+      { en:"What's the Wi-Fi password?", zh:"Wi-Fi 密碼是什麼？" },
+    ],
+    tip:"☕ 小技巧：咖啡廳是練英文的好地方，試著用英文描述自己喜歡的口味！"
+  },
+  {
+    id:9, label:"藥局", emoji:"💊",
+    heroBg:"linear-gradient(135deg,#001f1f,#006060)",
+    tag:"健康 & 醫藥", title:"Day 9 — 藥局購藥",
+    desc:"身體不舒服不慌張，學會描述症狀，藥師幫你找到對的藥。",
+    phrases:[
+      { en:"I have a headache. Do you have painkillers?", zh:"我頭痛，有止痛藥嗎？" },
+      { en:"I'm looking for something for a sore throat.", zh:"我在找喉嚨痛的藥。" },
+      { en:"Do I need a prescription for this?", zh:"這個需要處方箋嗎？" },
+      { en:"How often should I take this?", zh:"這個藥多久吃一次？", note:"💡 dosage = 劑量" },
+      { en:"Are there any side effects?", zh:"有什麼副作用嗎？" },
+    ],
+    tip:"💊 小技巧：出發前把常見症狀的英文列在手機備忘錄，緊急時超好用！"
+  },
+  {
+    id:10, label:"觀光景點", emoji:"🗺️",
+    heroBg:"linear-gradient(135deg,#1a1000,#4a3500)",
+    tag:"旅遊 & 觀光", title:"Day 10 — 景點參觀",
+    desc:"探索城市地標，學會購票、問路和導覽的英文表達。",
+    phrases:[
+      { en:"How much is the admission fee?", zh:"入場費多少錢？" },
+      { en:"Is there a student discount?", zh:"有學生優惠嗎？" },
+      { en:"Are photos allowed inside?", zh:"裡面可以拍照嗎？" },
+      { en:"What time does it close?", zh:"幾點關閉？" },
+      { en:"Could you take a photo of us?", zh:"可以幫我們拍張照嗎？" },
+    ],
+    tip:"📸 小技巧：幫別人拍照後，對方通常會回拍，是認識新朋友的好機會！"
+  },
+  {
+    id:11, label:"問路", emoji:"🧭",
+    heroBg:"linear-gradient(135deg,#001020,#002550)",
+    tag:"導航 & 方向", title:"Day 11 — 問路導航",
+    desc:"就算 Google Maps 沒信號，英文問路也能帶你找到目的地。",
+    phrases:[
+      { en:"Excuse me, how do I get to the museum?", zh:"不好意思，怎麼去博物館？" },
+      { en:"Is it within walking distance?", zh:"走路可以到嗎？" },
+      { en:"Turn left at the traffic light.", zh:"在紅綠燈左轉。", note:"💡 turn right = 右轉" },
+      { en:"It's about a 10-minute walk.", zh:"走路大約10分鐘。" },
+      { en:"I think I'm lost.", zh:"我覺得我迷路了。" },
+    ],
+    tip:"🧭 小技巧：問路時重複確認 'So I go straight and then turn right?' 確保理解正確。"
+  },
+  {
+    id:12, label:"購物中心", emoji:"🛍️",
+    heroBg:"linear-gradient(135deg,#1f001f,#5c0050)",
+    tag:"購物 & 時尚", title:"Day 12 — 購物中心",
+    desc:"在百貨商場試穿、詢問尺寸和退換貨，樣樣難不倒你。",
+    phrases:[
+      { en:"Do you have this in a medium?", zh:"這個有中號嗎？" },
+      { en:"Can I try this on?", zh:"可以試穿嗎？" },
+      { en:"This is too tight. Do you have a bigger size?", zh:"這太緊了，有大一點的嗎？" },
+      { en:"Is this on sale?", zh:"這個有特價嗎？" },
+      { en:"Can I return this if it doesn't fit?", zh:"如果不合身可以退嗎？" },
+    ],
+    tip:"🛍️ 小技巧：退換貨要確認 'return policy'，通常需要保留收據和標籤。"
+  },
+  {
+    id:13, label:"銀行", emoji:"🏦",
+    heroBg:"linear-gradient(135deg,#001a00,#004400)",
+    tag:"金融 & 換匯", title:"Day 13 — 銀行換匯",
+    desc:"學會在銀行換外幣、查詢匯率，讓旅遊財務無後顧之憂。",
+    phrases:[
+      { en:"I'd like to exchange some currency.", zh:"我想換一些外幣。" },
+      { en:"What's the exchange rate today?", zh:"今天的匯率是多少？" },
+      { en:"I'd like to withdraw some cash.", zh:"我想提領一些現金。" },
+      { en:"Is there a transaction fee?", zh:"有手續費嗎？", note:"💡 transaction fee = 手續費" },
+      { en:"Can I use this card here?", zh:"這裡可以用這張卡嗎？" },
+    ],
+    tip:"💵 小技巧：換匯前先在 Google 查好即時匯率，才不會被坑！"
+  },
+  {
+    id:14, label:"緊急求助", emoji:"🆘",
+    heroBg:"linear-gradient(135deg,#1f0000,#5c0000)",
+    tag:"緊急 & 安全", title:"Day 14 — 緊急求助",
+    desc:"遇到突發狀況保持冷靜，幾句關鍵英文幫你度過危機。",
+    phrases:[
+      { en:"Help! Call the police!", zh:"救命！快叫警察！" },
+      { en:"I need a doctor immediately.", zh:"我需要立刻看醫生。" },
+      { en:"My wallet was stolen.", zh:"我的錢包被偷了。" },
+      { en:"I lost my passport.", zh:"我的護照遺失了。" },
+      { en:"Please call the Taiwanese consulate.", zh:"請聯絡台灣的領事館。", note:"💡 出國前記下當地台辦電話" },
+    ],
+    tip:"🆘 小技巧：出發前在手機存好當地緊急電話、台辦電話和保險公司電話！"
+  },
+  ...Array.from({length:35}, (_,i)=>{
+    const extra = [
+      {label:"早餐店",emoji:"🥐",heroBg:"linear-gradient(135deg,#1a0e00,#5c3800)",tag:"早晨 & 輕食",title:`Day ${15+i} — 早餐店`,desc:"一天的開始從一頓美味早餐開始，用英文點出你想要的早餐。",phrases:[{en:"What breakfast options do you have?",zh:"你們有哪些早餐選擇？"},{en:"Can I get a fried egg sandwich?",zh:"我可以點一個煎蛋三明治嗎？"},{en:"I'd like my eggs sunny-side up.",zh:"我的蛋要太陽蛋。",note:"💡 scrambled = 炒蛋, over easy = 半熟蛋"},{en:"Can I get a refill of coffee?",zh:"咖啡可以續杯嗎？"},{en:"Does this come with orange juice?",zh:"這個套餐有附柳橙汁嗎？"}],tip:"🥞 小技巧：早餐時間最輕鬆，趁機多開口點餐，英文自信心大幅提升！"},
+      {label:"計程車",emoji:"🚕",heroBg:"linear-gradient(135deg,#1a1000,#4a2800)",tag:"交通 & 出行",title:`Day ${15+i} — 計程車`,desc:"跳上計程車，用英文告知目的地和需求，輕鬆抵達。",phrases:[{en:"Take me to the airport, please.",zh:"請載我去機場。"},{en:"How long will it take?",zh:"要多久？"},{en:"Please turn on the meter.",zh:"請打錶。",note:"💡 meter = 計費表"},{en:"Keep the change.",zh:"不用找了。"},{en:"Could you drive more slowly?",zh:"可以開慢一點嗎？"}],tip:"🚕 小技巧：上車前先用地圖截圖目的地，展示給司機看更保險。"},
+      {label:"圖書館",emoji:"📚",heroBg:"linear-gradient(135deg,#001525,#003550)",tag:"學習 & 文化",title:`Day ${15+i} — 圖書館`,desc:"探訪當地圖書館，借閱書籍並感受不同文化的知識殿堂。",phrases:[{en:"Do I need a library card?",zh:"需要辦借書證嗎？"},{en:"Where is the English fiction section?",zh:"英文小說區在哪裡？"},{en:"How long can I borrow this book?",zh:"這本書可以借多久？"},{en:"Can I use the computers here?",zh:"可以使用這裡的電腦嗎？"},{en:"Is there a quiet study area?",zh:"有安靜的自習區嗎？"}],tip:"📖 小技巧：在圖書館找一本兒童英文書讀讀看，既有趣又能練習基礎詞彙！"},
+      {label:"夜市",emoji:"🌙",heroBg:"linear-gradient(135deg,#100020,#30006a)",tag:"美食 & 夜生活",title:`Day ${15+i} — 夜市探索`,desc:"夜幕低垂，走進熱鬧夜市，用英文介紹台灣美食文化。",phrases:[{en:"This is a night market, a Taiwanese street food tradition.",zh:"這是夜市，台灣的街頭小吃傳統。"},{en:"Have you tried bubble tea before?",zh:"你喝過珍珠奶茶嗎？"},{en:"This is spicy, be careful!",zh:"這個很辣，小心！",note:"💡 mild / medium / hot = 微辣/中辣/大辣"},{en:"How much for two portions?",zh:"兩份多少錢？"},{en:"It's delicious, you should try it!",zh:"很好吃，你應該嚐嚐！"}],tip:"🌙 小技巧：帶外國朋友逛夜市，邊吃邊用英文介紹，是最棒的文化交流！"},
+      {label:"公園",emoji:"🌳",heroBg:"linear-gradient(135deg,#001a00,#003d00)",tag:"休閒 & 自然",title:`Day ${15+i} — 公園休閒`,desc:"在城市公園放鬆身心，學習描述自然景觀的英文表達。",phrases:[{en:"What a beautiful park!",zh:"好美的公園！"},{en:"Is there a jogging trail nearby?",zh:"附近有慢跑步道嗎？"},{en:"Are dogs allowed in the park?",zh:"公園裡可以帶狗嗎？"},{en:"Is the park open all night?",zh:"公園整晚都開放嗎？"},{en:"Could you recommend a good picnic spot?",zh:"可以推薦一個好的野餐地點嗎？"}],tip:"🌳 小技巧：公園是練習描述環境和天氣的絕佳場所，邊走邊用英文自言自語！"},
+    ];
+    return extra[i % extra.length];
+  })
 ];
 
-const colors = ["var(--teal)","var(--purple)","var(--green)","var(--amber)","var(--red)","var(--indigo)"];
+// ─────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────
+let current = 0;
 
-// Build vocab chips
-vocabData.forEach((words, si) => {
-  const container = document.getElementById(`vocab${si}`);
-  if (!container) return;
-  words.forEach(w => {
-    const chip = document.createElement('div');
-    chip.className = 'chip';
-    chip.style.color = colors[si];
-    chip.style.borderColor = colors[si];
-    chip.textContent = w.en;
-    chip.dataset.en = w.en;
-    chip.dataset.zh = w.zh;
-    chip.dataset.flipped = '0';
-    chip.onclick = function() {
-      if (this.dataset.flipped === '0') {
-        this.textContent = w.zh;
-        this.classList.add('flipped');
-        this.style.background = colors[si];
-        this.dataset.flipped = '1';
-      } else {
-        this.textContent = w.en;
-        this.classList.remove('flipped');
-        this.style.background = '';
-        this.dataset.flipped = '0';
-      }
-    };
-    container.appendChild(chip);
+// ─────────────────────────────────────────────
+//  RENDER SIDEBAR
+// ─────────────────────────────────────────────
+function renderSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const weekLabels = ['Week 1 — 出發準備','Week 2 — 城市生活','Week 3 — 深度探索','Week 4 — 文化交流','Week 5 — 進階挑戰','Week 6 — 生活整合','Week 7 — 衝刺完賽'];
+  let html = '';
+  DAYS.forEach((day, idx) => {
+    const weekIdx = Math.floor(idx / 7);
+    if (idx % 7 === 0) {
+      html += `<div class="sidebar-section-label">${weekLabels[weekIdx] || `Week ${weekIdx+1}`}</div>`;
+    }
+    html += `<button class="day-btn${idx===current?' active':''}" onclick="goTo(${idx})">
+      <span class="day-num">D${String(day.id).padStart(2,'0')}</span>
+      <span>${day.label}</span>
+    </button>`;
   });
-});
-
-// ── NAVIGATION ────────────────────────────────────────────────────────────
-function showScene(idx, btn) {
-  document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-  document.getElementById('scene' + idx).classList.add('active');
-  btn.classList.add('active');
-  if (idx === 6) startQuiz();
+  sidebar.innerHTML = html;
 }
 
-// ── CARD TOGGLE ───────────────────────────────────────────────────────────
-function toggleCard(card) {
-  card.classList.toggle('open');
+// ─────────────────────────────────────────────
+//  RENDER MAIN
+// ─────────────────────────────────────────────
+function renderMain() {
+  const d = DAYS[current];
+  const main = document.getElementById('main');
+  main.innerHTML = `
+    <div class="scene-card">
+      <div class="scene-hero" style="--hero-bg:${d.heroBg}">
+        <span class="scene-emoji">${d.emoji}</span>
+      </div>
+      <div class="scene-body">
+        <div class="scene-tag">📍 ${d.tag}</div>
+        <h2 class="scene-title">${d.title}</h2>
+        <p class="scene-desc">${d.desc}</p>
+      </div>
+    </div>
+
+    <div class="phrases-card">
+      <div class="phrases-header">
+        <span class="phrases-icon">💬</span>
+        <span class="phrases-title">萬用句型 — 今日 ${d.phrases.length} 句</span>
+      </div>
+      <div class="phrase-list">
+        ${d.phrases.map(p=>`
+          <div class="phrase-item">
+            <div class="phrase-en">${p.en}</div>
+            <div class="phrase-zh">${p.zh}</div>
+            ${p.note ? `<div class="phrase-note">${p.note}</div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="tips-card">
+      <div class="tips-label">✨ 今日學習小技巧</div>
+      <p class="tips-text">${d.tip}</p>
+    </div>
+
+    <div class="nav-footer">
+      <button class="nav-btn" onclick="goTo(${current-1})" ${current===0?'disabled':''}>← 前一天</button>
+      <span class="progress-pill"><span class="progress-fill">${current+1}</span> / 49</span>
+      <button class="nav-btn" onclick="goTo(${current+1})" ${current===48?'disabled':''}>後一天 →</button>
+    </div>
+  `;
+  main.scrollTo({ top:0, behavior:'smooth' });
 }
 
-// ── QUIZ ──────────────────────────────────────────────────────────────────
-const questions = [
-  { q:"飛機上要去冰的可樂，你怎麼說？", opts:["Give me Coke without ice.","Can I have a Coke, no ice, please?","I want Coke no ice.","Coke please, no freeze."], ans:1, exp:"'Can I have...' 是最禮貌的請求句型。" },
-  { q:"海關問 'What is the purpose of your visit?'，你應該回答？", opts:["I'm a tourist here.","Sightseeing.","I'm here for sightseeing.","I come to Thailand."], ans:2, exp:"完整句子 'I'm here for sightseeing.' 最專業。" },
-  { q:"要跟店員說幫你把 SIM 卡裝好並測試，怎麼說？", opts:["Put SIM inside please.","Could you help me insert the SIM and test it?","Install my SIM card.","SIM card put in my phone."], ans:1, exp:"'Could you help me...' 是禮貌請求的標準句型。" },
-  { q:"你在飛機上感覺暈機，你會說？", opts:["I'm sick. Help!","Excuse me, I'm not feeling well. Could I get some help?","I have problem.","Where is doctor?"], ans:1, exp:"'I'm not feeling well' 是通用不舒服的表達。" },
-  { q:"'Lavatory' 在飛機上是指什麼？", opts:["出口","廁所","行李廂","安全帶"], ans:1, exp:"Lavatory = 飛機上的廁所，正式用語。" },
-  { q:"飯店 check-in 時說自己有訂房，怎麼說？", opts:["I book room here.","I have reservation under [your name].","My room is booked.","Reservation, my name."], ans:1, exp:"'I have a reservation under [name].' 是標準說法。" },
-  { q:"'I have nothing to declare.' 意思是？", opts:["我什麼都不知道","我沒有需要申報的物品","我不想說話","我沒有行李"], ans:1, exp:"海關申報必備句，表示沒有需要申報的東西。" },
-  { q:"網卡沒訊號時，第一步應該做什麼？", opts:["直接換一張","重新開機，試飛航模式開/關","找警察","打電話給航空公司"], ans:1, exp:"Airplane mode on/off 是最快的基本排除方法。" },
-];
-
-let qIdx = 0, score = 0, answered = false;
-
-function startQuiz() {
-  qIdx = 0; score = 0; answered = false;
-  document.getElementById('quizScore').style.display = 'none';
-  document.getElementById('quizNext').style.display = 'none';
-  document.getElementById('quizFb').className = 'quiz-feedback';
-  document.getElementById('quizFb').textContent = '';
-  document.getElementById('quizProgBar').style.width = '0%';
-  renderQuestion();
+// ─────────────────────────────────────────────
+//  NAVIGATION
+// ─────────────────────────────────────────────
+function goTo(idx) {
+  if (idx < 0 || idx >= DAYS.length) return;
+  current = idx;
+  renderSidebar();
+  renderMain();
+  // Scroll sidebar button into view
+  const btns = document.querySelectorAll('.day-btn');
+  btns[idx]?.scrollIntoView({ block:'nearest', behavior:'smooth' });
 }
 
-function renderQuestion() {
-  answered = false;
-  const q = questions[qIdx];
-  document.getElementById('quizQ').textContent = `Q${qIdx+1} / ${questions.length}  ${q.q}`;
-  const optsEl = document.getElementById('quizOpts');
-  optsEl.innerHTML = '';
-  q.opts.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'quiz-opt';
-    btn.textContent = opt;
-    btn.onclick = () => selectAnswer(i);
-    optsEl.appendChild(btn);
-  });
-  document.getElementById('quizFb').className = 'quiz-feedback';
-  document.getElementById('quizNext').style.display = 'none';
-}
-
-function selectAnswer(idx) {
-  if (answered) return;
-  answered = true;
-  const q = questions[qIdx];
-  const opts = document.querySelectorAll('.quiz-opt');
-  opts.forEach((o, i) => {
-    if (i === q.ans) o.classList.add('correct');
-    else if (i === idx && idx !== q.ans) o.classList.add('wrong');
-  });
-  const fb = document.getElementById('quizFb');
-  if (idx === q.ans) {
-    score++;
-    fb.className = 'quiz-feedback correct show';
-    fb.textContent = '✅ 正確！' + q.exp;
-  } else {
-    fb.className = 'quiz-feedback wrong show';
-    fb.textContent = '❌ 答案是：' + q.opts[q.ans] + '。' + q.exp;
-  }
-  document.getElementById('quizProgBar').style.width = ((score / questions.length) * 100) + '%';
-  document.getElementById('quizNext').style.display = 'inline-block';
-  if (qIdx === questions.length - 1) document.getElementById('quizNext').textContent = '查看結果 🏆';
-}
-
-function nextQuestion() {
-  qIdx++;
-  if (qIdx >= questions.length) {
-    const pct = Math.round(score / questions.length * 100);
-    let emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👍' : '💪';
-    document.getElementById('quizQ').textContent = '';
-    document.getElementById('quizOpts').innerHTML = '';
-    document.getElementById('quizFb').className = 'quiz-feedback';
-    document.getElementById('quizNext').style.display = 'none';
-    const scoreEl = document.getElementById('quizScore');
-    scoreEl.style.display = 'block';
-    scoreEl.innerHTML = `${emoji}<br>${score} / ${questions.length} 題正確<br><span style="font-size:.9rem;color:var(--muted)">得分 ${pct}% — ${pct>=80?'優秀！繼續保持':pct>=60?'不錯！再多練習':'加油！明天再挑戰'}`;
-  } else {
-    renderQuestion();
-  }
-}
-
-// ── COPY HTML ─────────────────────────────────────────────────────────────
-function copyHTML() {
-  const html = document.documentElement.outerHTML;
-  navigator.clipboard.writeText(html).then(() => {
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '✅ 已複製！';
-    btn.classList.add('done');
-    setTimeout(() => { btn.textContent = '複製完整程式碼'; btn.classList.remove('done'); }, 3000);
-  }).catch(() => {
-    alert('請手動選取全部頁面原始碼（Ctrl+U 或右鍵→檢視原始碼），然後複製儲存為 .html 檔案。');
-  });
-}
-
-// Init
-startQuiz();
+// ─────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────
+renderSidebar();
+renderMain();
 </script>
 </body>
 </html>
