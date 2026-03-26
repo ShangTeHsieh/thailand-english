@@ -1,730 +1,487 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>49 天英文衝刺導覽</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-<style>
-  /* ── CSS Variables ── */
-  :root {
-    --bg: #0f0e17;
-    --surface: #1a1828;
-    --surface2: #231f35;
-    --accent: #f5a623;
-    --accent2: #e8547a;
-    --teal: #3ec9c9;
-    --text: #fffffe;
-    --text-muted: #a7a9be;
-    --border: rgba(255,255,255,0.07);
-    --radius: 14px;
-    --sidebar-w: 220px;
-    --transition: 0.3s cubic-bezier(.4,0,.2,1);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 ACI 泰國年會：SRS 智能口說戰情室</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="data.js"></script>
+  <style>
+    /* ── 基礎色彩與排版 ── */
+    :root {
+      --bg: #0f0e17; --surface: #1a1828; --surface2: #231f35;
+      --accent: #f5a623; --accent2: #e8547a; --teal: #3ec9c9; --text: #fffffe;
+      --text-muted: #a7a9be; --border: rgba(255,255,255,0.07);
+      --radius: 14px; --sidebar-w: 260px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); font-family: 'Noto Sans TC', sans-serif; display: flex; height: 100vh; overflow: hidden; }
+    
+    /* ── 側邊欄 (Sidebar) ── */
+    #sidebar { width: var(--sidebar-w); background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; flex-shrink: 0; }
+    .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); }
+    .day-list { flex: 1; overflow-y: auto; padding: 10px; }
+    .day-item { width: 100%; padding: 12px; margin-bottom: 4px; border: none; background: transparent; color: var(--text-muted); text-align: left; border-radius: var(--radius); cursor: pointer; display: flex; flex-direction: column; transition: 0.2s; }
+    .day-item:hover { background: var(--surface2); color: var(--text); }
+    .day-item.active { background: var(--accent); color: var(--bg); font-weight: 600; }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── 主畫面 (Main Content) ── */
+    #main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; position: relative; }
+    .top-banner { padding: 15px 30px; background: rgba(15,14,23,0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    
+    .countdown-text { font-family: 'JetBrains Mono'; color: var(--accent2); font-weight: bold; font-size: 0.85rem; }
+    
+    .mode-btn { background: var(--teal); border: none; color: var(--bg); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: bold; box-shadow: 0 4px 15px rgba(62,201,201,0.3); transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+    .mode-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(62,201,201,0.5); }
+    .mode-btn.disabled { background: var(--surface2); color: var(--text-muted); box-shadow: none; cursor: not-allowed; transform: none; }
 
-  body {
-    font-family: 'Noto Sans TC', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
-  }
+    .content-container { max-width: 800px; margin: 30px auto; padding: 0 20px; width: 100%; }
+    
+    /* ── 句型清單卡片 ── */
+    .phrase-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 25px; margin-bottom: 15px; position: relative; transition: 0.3s; }
+    .phrase-card.mastered { border-color: var(--teal); background: rgba(62,201,201,0.05); }
+    .phrase-en { font-family: 'Playfair Display'; font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; padding-right: 90px; line-height: 1.3; }
+    .phrase-zh { font-size: 0.95rem; color: var(--text-muted); }
+    
+    .action-group { position: absolute; right: 20px; top: 20px; display: flex; gap: 8px; }
+    .icon-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text-muted); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; font-size: 1rem; }
+    .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .icon-btn.active { background: var(--teal); color: var(--bg); border-color: var(--teal); }
 
-  /* ── Top Banner ── */
-  .top-banner {
-    background: linear-gradient(90deg, #1a1828 0%, #2a1f3d 50%, #1a1828 100%);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
+    .scenario-badge { font-size: 0.7rem; background: var(--accent2); color: white; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; display: inline-block; font-weight: bold; letter-spacing: 1px; }
 
-  .banner-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem;
-    letter-spacing: 0.02em;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+    /* ── SRS 字卡彈出視窗 ── */
+    #flashcard-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,14,23,0.95); z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
+    .card { width: 100%; max-width: 500px; min-height: 300px; background: var(--surface2); border: 2px solid var(--accent); border-radius: 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; cursor: pointer; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .card-content { font-family: 'Playfair Display'; font-size: 1.8rem; color: var(--accent); line-height: 1.4; }
+    .card-zh { font-family: 'Noto Sans TC'; font-size: 1.2rem; color: var(--teal); margin-top: 25px; font-weight: 500; }
+    .card-counter { position: absolute; top: 20px; left: 30px; font-family: 'JetBrains Mono'; font-size: 0.9rem; color: var(--text-muted); }
+    .card-hint { position: absolute; bottom: 20px; font-size: 0.8rem; color: var(--text-muted); opacity: 0.7; }
+    
+    /* SRS 評分按鈕 */
+    .srs-nav { display: flex; gap: 10px; margin-top: 30px; width: 100%; max-width: 500px; justify-content: space-between; display: none; }
+    .srs-btn { flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 15px 5px; border-radius: 15px; cursor: pointer; text-align: center; font-size: 0.95rem; font-weight: bold; transition: 0.2s; }
+    .srs-btn:hover { transform: translateY(-3px); background: var(--surface2); }
+    .srs-btn span { display: block; font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; font-weight: normal; font-family: 'JetBrains Mono'; }
+    .srs-btn.again { border-bottom: 4px solid #e8547a; }
+    .srs-btn.hard { border-bottom: 4px solid #f5a623; }
+    .srs-btn.good { border-bottom: 4px solid #3ec9c9; }
+    .srs-btn.easy { border-bottom: 4px solid #4a90e2; }
 
-  .banner-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+    /* ── 底部導覽 ── */
+    .nav-footer { margin-top: 40px; padding-bottom: 60px; display: flex; justify-content: space-between; }
+    .nav-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 12px 24px; border-radius: 12px; cursor: pointer; transition: 0.2s; }
+    .nav-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; }
 
-  .update-badge {
-    background: rgba(245,166,35,0.12);
-    border: 1px solid rgba(245,166,35,0.3);
-    color: var(--accent);
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  /* ── Layout ── */
-  .layout {
-    display: flex;
-    flex: 1;
-    min-height: 0;
-  }
-
-  /* ── Sidebar ── */
-  .sidebar {
-    width: var(--sidebar-w);
-    background: var(--surface);
-    border-right: 1px solid var(--border);
-    overflow-y: auto;
-    flex-shrink: 0;
-    padding: 12px 0;
-  }
-
-  .sidebar::-webkit-scrollbar { width: 4px; }
-  .sidebar::-webkit-scrollbar-track { background: transparent; }
-  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
-  .sidebar-section-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    padding: 14px 18px 6px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .day-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    padding: 9px 18px;
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 0.82rem;
-    font-family: 'Noto Sans TC', sans-serif;
-    transition: background var(--transition), color var(--transition);
-    text-align: left;
-    border-left: 3px solid transparent;
-  }
-
-  .day-btn:hover {
-    background: rgba(255,255,255,0.04);
-    color: var(--text);
-  }
-
-  .day-btn.active {
-    background: rgba(245,166,35,0.08);
-    color: var(--accent);
-    border-left-color: var(--accent);
-    font-weight: 700;
-  }
-
-  .day-num {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    color: var(--accent2);
-    opacity: 0.7;
-    min-width: 28px;
-  }
-
-  .day-btn.active .day-num { opacity: 1; }
-
-  /* ── Main Content ── */
-  .main {
-    flex: 1;
-    overflow-y: auto;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  /* ── Scene Card ── */
-  .scene-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    animation: fadeSlide 0.35s ease forwards;
-  }
-
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .scene-hero {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .scene-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--hero-bg, linear-gradient(135deg,#1a1828,#2a1f3d));
-    z-index: 0;
-  }
-
-  .scene-emoji {
-    position: relative;
-    z-index: 1;
-    filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5));
-    animation: float 3s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50%      { transform: translateY(-10px); }
-  }
-
-  .scene-body {
-    padding: 22px 24px;
-  }
-
-  .scene-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--teal);
-    background: rgba(62,201,201,0.1);
-    border: 1px solid rgba(62,201,201,0.25);
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-bottom: 12px;
-  }
-
-  .scene-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .scene-desc {
-    color: var(--text-muted);
-    font-size: 0.88rem;
-    line-height: 1.7;
-  }
-
-  /* ── Phrases Section ── */
-  .phrases-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    animation: fadeSlide 0.4s ease 0.05s both forwards;
-    opacity: 0;
-  }
-
-  .phrases-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .phrases-icon {
-    font-size: 1.2rem;
-  }
-
-  .phrases-title {
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--text);
-  }
-
-  .phrase-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .phrase-item {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    transition: border-color var(--transition), transform var(--transition);
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .phrase-item::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: linear-gradient(180deg, var(--accent), var(--accent2));
-    border-radius: 3px 0 0 3px;
-    opacity: 0;
-    transition: opacity var(--transition);
-  }
-
-  .phrase-item:hover {
-    border-color: rgba(245,166,35,0.35);
-    transform: translateX(4px);
-  }
-
-  .phrase-item:hover::before { opacity: 1; }
-
-  .phrase-en {
-    font-size: 0.97rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 5px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-
-  .phrase-zh {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-  }
-
-  .phrase-note {
-    font-size: 0.75rem;
-    color: var(--teal);
-    margin-top: 4px;
-    opacity: 0.8;
-  }
-
-  /* ── Tips Card ── */
-  .tips-card {
-    background: linear-gradient(135deg, rgba(245,166,35,0.07), rgba(232,84,122,0.07));
-    border: 1px solid rgba(245,166,35,0.2);
-    border-radius: var(--radius);
-    padding: 20px 24px;
-    animation: fadeSlide 0.45s ease 0.1s both forwards;
-    opacity: 0;
-  }
-
-  .tips-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .tips-text {
-    font-size: 0.88rem;
-    color: var(--text-muted);
-    line-height: 1.75;
-  }
-
-  /* ── Nav Footer ── */
-  .nav-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: fadeSlide 0.5s ease 0.15s both forwards;
-    opacity: 0;
-  }
-
-  .nav-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-size: 0.83rem;
-    font-family: 'Noto Sans TC', sans-serif;
-    cursor: pointer;
-    transition: all var(--transition);
-  }
-
-  .nav-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .nav-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  .progress-pill {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 20px;
-  }
-
-  .progress-fill {
-    color: var(--accent);
-    font-weight: 700;
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 640px) {
-    .sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
-    .layout { flex-direction: column; }
-    .main { padding: 20px 16px; }
-    .scene-hero { height: 140px; font-size: 4rem; }
-  }
-</style>
+    /* ── RWD 手機版優化 ── */
+    @media (max-width: 850px) {
+      body { flex-direction: column; }
+      #sidebar { width: 100%; height: 80px; border-right: none; border-bottom: 1px solid var(--border); }
+      .day-list { display: flex; overflow-x: auto; padding: 10px; gap: 10px; }
+      .day-item { white-space: nowrap; width: auto; margin-bottom: 0; padding: 10px 15px; }
+      .sidebar-header { display: none; }
+      .phrase-en { font-size: 1.15rem; padding-right: 70px; }
+      .card-content { font-size: 1.4rem; }
+      .srs-nav { flex-wrap: wrap; }
+      .srs-btn { min-width: 45%; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ── Top Banner ── -->
-<header class="top-banner">
-  <span class="banner-title">✈️ 49 天英文衝刺計畫</span>
-  <div class="banner-meta">
-    <span class="update-badge">🕐 更新日期：2025-03-25</span>
-    <span style="color:var(--border)">|</span>
-    <span>v1.0.0</span>
+<aside id="sidebar">
+  <div class="sidebar-header"><h2 style="font-size: 1rem; color: var(--accent);">🇹🇭 ACI 衝刺進度表</h2></div>
+  <div id="day-list" class="day-list"></div>
+</aside>
+
+<main id="main">
+  <header class="top-banner">
+    <div>
+      <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted);">主題：<span id="current-theme-name" style="color: var(--text);">載入中</span></div>
+      <div id="countdown" class="countdown-text">距離年會倒數計算中...</div>
+    </div>
+    <div class="btn-group">
+      <button id="start-srs-btn" class="mode-btn" onclick="openFlashcards()">
+        🎴 SRS 總複習 (<span id="due-count">0</span>)
+      </button>
+    </div>
+  </header>
+  <div id="content-container" class="content-container"></div>
+</main>
+
+<div id="flashcard-overlay">
+  <button style="position:absolute; top:20px; right:20px; background:var(--surface); border:1px solid var(--border); color:var(--text); width:40px; height:40px; border-radius:50%; font-size:1.2rem; cursor:pointer;" onclick="closeFlashcards()">✕</button>
+  
+  <div class="card" onclick="flipCard()">
+    <div id="card-count" class="card-counter">0 / 0</div>
+    <div id="card-en" class="card-content">載入中...</div>
+    <div id="card-zh" class="card-zh" style="display:none;"></div>
+    <div id="card-hint" class="card-hint">點擊卡片翻面</div>
   </div>
-</header>
+  
+  <div id="srs-nav" class="srs-nav">
+    <button class="srs-btn again" onclick="handleSRS('again', event)">Again<br><span>< 1m</span></button>
+    <button class="srs-btn hard" onclick="handleSRS('hard', event)">Hard<br><span>1d</span></button>
+    <button class="srs-btn good" onclick="handleSRS('good', event)">Good<br><span>3d</span></button>
+    <button class="srs-btn easy" onclick="handleSRS('easy', event)">Easy<br><span>7d</span></button>
+  </div>
 
-<!-- ── Layout ── -->
-<div class="layout">
-
-  <!-- ── Sidebar ── -->
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-section-label">Week 1 — 出發準備</div>
-    <!-- Buttons injected by JS -->
-  </nav>
-
-  <!-- ── Main ── -->
-  <main class="main" id="main"></main>
+  <div id="end-nav" class="srs-nav" style="display: none; justify-content: center;">
+    <button class="srs-btn good" onclick="loadMoreNewCards(event)" style="flex:none; padding:15px 30px; font-size:1.1rem;">
+      ➕ 學習 5 句新進度
+    </button>
+  </div>
 
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-//  DATA — 49 Days
-// ─────────────────────────────────────────────
-const DAYS = [
-  {
-    id: 1, label: "計畫啟動", emoji: "🚀", date: "3/27 (五)",
-    heroBg: "linear-gradient(135deg,#0f0e17,#ff8906)",
-    tag: "計畫核心", title: "Day 01 — 49天衝刺啟動",
-    desc: "今天是 3/27，距離 5/11 ACI 會議還有 49 天。目標：建立每日英語肌肉記憶。",
-    phrases: [
-      { en: "I am ready for the 49-day English challenge.", zh: "我準備好接受 49 天英語挑戰了。" },
-      { en: "My goal is to participate in the ACI conference smoothly.", zh: "我的目標是順利參與 ACI 會議。" }
-    ],
-    tip: "💡 第一天：請將 GitHub 網址設為手機瀏覽器首頁，每天早上刷牙時看一分鐘。"
-  },
-  {
-    id: 2, label: "機上服務", emoji: "✈️", date: "3/28 (六)",
-    heroBg: "linear-gradient(135deg,#0d1b2a,#1b3a5c)",
-    tag: "機場 & 航班", title: "Day 02 — 飛機上 (生存篇)",
-    desc: "搭機前往曼谷，從座位到餐點的反射性回答。",
-    phrases: [
-      { en: "I'll have the chicken meal, please.", zh: "我要雞肉餐，謝謝。" },
-      { en: "Can I have a Coke, no ice, please?", zh: "給我一杯去冰可樂，謝謝。" },
-      { en: "Could I borrow a pen to fill out the form?", zh: "可以借我一支筆填表嗎？" }
-    ],
-    tip: "🥤 泰國篇小技巧：在東南亞航班上，「去冰 (no ice)」是你最常用的單字。"
-  },
-  {
-    id: 3, label: "海關入境", emoji: "🛃", date: "3/29 (日)",
-    heroBg: "linear-gradient(135deg,#1a0a2e,#2d1b69)",
-    tag: "入境 & 邊境", title: "Day 03 — 泰國海關實戰",
-    desc: "面對海關，專業地說明來訪目的。",
-    phrases: [
-      { en: "I am here for the ACI professional conference.", zh: "我是來參加 ACI 專業會議的。" },
-      { en: "I am an electrical engineer from Taiwan.", zh: "我是來自台灣的電氣工程師。" },
-      { en: "I will be staying for 5 days at the [Hotel Name].", zh: "我會在某飯店待 5 天。" }
-    ],
-    tip: "🛂 專業技巧：提到 'Professional Conference' 通常會讓海關對你更客氣。"
-  },
-  {
-    id:4, label:"飯店", emoji:"🏨",
-    heroBg:"linear-gradient(135deg,#1a120b,#3e1f0d)",
-    tag:"住宿 & Check-in", title:"Day 4 — 飯店入住",
-    desc:"順利辦理入住，讓旅途的第一個夜晚舒適安心。",
-    phrases:[
-      { en:"I have a reservation under the name Chen.", zh:"我有訂房，名字是陳。" },
-      { en:"Could I get a room with a city view?", zh:"可以給我一間有城市景觀的房間嗎？" },
-      { en:"Is breakfast included?", zh:"有包含早餐嗎？" },
-      { en:"What time is check-out?", zh:"幾點退房？" },
-      { en:"Could I have an extra towel?", zh:"可以多給我一條毛巾嗎？" },
-    ],
-    tip:"🛎️ 小技巧：入住時主動確認 Wi-Fi 密碼和早餐時間，避免隔天手忙腳亂。"
-  },
-  {
-    id:5, label:"超市", emoji:"🛒",
-    heroBg:"linear-gradient(135deg,#0a1f0a,#1a4a1a)",
-    tag:"購物 & 日用品", title:"Day 5 — 超市採購",
-    desc:"進入當地超市，購買日用品與零食，融入在地生活節奏。",
-    phrases:[
-      { en:"Where is the dairy section?", zh:"乳製品區在哪裡？" },
-      { en:"Do you have a loyalty card?", zh:"你有會員卡嗎？" },
-      { en:"Can I pay by card?", zh:"可以刷卡嗎？" },
-      { en:"Could you give me a bag?", zh:"可以給我一個袋子嗎？" },
-      { en:"Is this on sale?", zh:"這個有特價嗎？", note:"💡 on sale = 特價中" },
-    ],
-    tip:"🛍️ 小技巧：超市購物是練習數字和商品名稱的絕佳場合，大膽開口詢問！"
-  },
-  {
-    id:6, label:"餐廳", emoji:"🍽️",
-    heroBg:"linear-gradient(135deg,#1f0a0a,#4a1010)",
-    tag:"用餐 & 點餐", title:"Day 6 — 餐廳用餐",
-    desc:"走進當地餐廳，自信點餐、提出需求，享受美食時光。",
-    phrases:[
-      { en:"A table for two, please.", zh:"請給我們兩人桌。" },
-      { en:"Could I see the menu?", zh:"可以給我菜單看看嗎？" },
-      { en:"I'm allergic to shellfish.", zh:"我對貝類過敏。", note:"⚠️ 食物過敏務必清楚說明" },
-      { en:"Can I have this without onions?", zh:"這道菜可以不要放洋蔥嗎？" },
-      { en:"Could we get the check, please?", zh:"可以幫我們結帳嗎？" },
-    ],
-    tip:"🍴 小技巧：不懂菜單可以說 'What do you recommend?' 讓服務生幫你推薦！"
-  },
-  {
-    id:7, label:"捷運", emoji:"🚇",
-    heroBg:"linear-gradient(135deg,#0a0a1f,#1a1a5c)",
-    tag:"大眾交通", title:"Day 7 — 搭乘捷運",
-    desc:"掌握大眾運輸英文，在陌生城市也能自由穿梭。",
-    phrases:[
-      { en:"Which line goes to downtown?", zh:"哪條線去市中心？" },
-      { en:"How many stops is it?", zh:"要幾站？" },
-      { en:"Do I need to transfer?", zh:"需要轉乘嗎？" },
-      { en:"Could you tell me when we reach Central Station?", zh:"可以告訴我到中央車站時嗎？" },
-      { en:"Is this the right platform for Line 2?", zh:"這是2號線的月台嗎？" },
-    ],
-    tip:"🚉 小技巧：先下載好當地交通 App，對照英文站名再問路，事半功倍。"
-  },
-  {
-    id:8, label:"咖啡廳", emoji:"☕",
-    heroBg:"linear-gradient(135deg,#1a0f00,#4a2c00)",
-    tag:"咖啡 & 輕食", title:"Day 8 — 咖啡廳時光",
-    desc:"來一杯手沖咖啡，練習點飲品和外帶的英文對話。",
-    phrases:[
-      { en:"Can I get a medium latte, please?", zh:"我要一杯中杯拿鐵，謝謝。" },
-      { en:"Is it for here or to go?", zh:"內用還是外帶？", note:"💡 to go / takeaway = 外帶" },
-      { en:"Can I have oat milk instead?", zh:"可以換成燕麥奶嗎？" },
-      { en:"Do you have any vegan options?", zh:"有純素的選擇嗎？" },
-      { en:"What's the Wi-Fi password?", zh:"Wi-Fi 密碼是什麼？" },
-    ],
-    tip:"☕ 小技巧：咖啡廳是練英文的好地方，試著用英文描述自己喜歡的口味！"
-  },
-  {
-    id:9, label:"藥局", emoji:"💊",
-    heroBg:"linear-gradient(135deg,#001f1f,#006060)",
-    tag:"健康 & 醫藥", title:"Day 9 — 藥局購藥",
-    desc:"身體不舒服不慌張，學會描述症狀，藥師幫你找到對的藥。",
-    phrases:[
-      { en:"I have a headache. Do you have painkillers?", zh:"我頭痛，有止痛藥嗎？" },
-      { en:"I'm looking for something for a sore throat.", zh:"我在找喉嚨痛的藥。" },
-      { en:"Do I need a prescription for this?", zh:"這個需要處方箋嗎？" },
-      { en:"How often should I take this?", zh:"這個藥多久吃一次？", note:"💡 dosage = 劑量" },
-      { en:"Are there any side effects?", zh:"有什麼副作用嗎？" },
-    ],
-    tip:"💊 小技巧：出發前把常見症狀的英文列在手機備忘錄，緊急時超好用！"
-  },
-  {
-    id:10, label:"觀光景點", emoji:"🗺️",
-    heroBg:"linear-gradient(135deg,#1a1000,#4a3500)",
-    tag:"旅遊 & 觀光", title:"Day 10 — 景點參觀",
-    desc:"探索城市地標，學會購票、問路和導覽的英文表達。",
-    phrases:[
-      { en:"How much is the admission fee?", zh:"入場費多少錢？" },
-      { en:"Is there a student discount?", zh:"有學生優惠嗎？" },
-      { en:"Are photos allowed inside?", zh:"裡面可以拍照嗎？" },
-      { en:"What time does it close?", zh:"幾點關閉？" },
-      { en:"Could you take a photo of us?", zh:"可以幫我們拍張照嗎？" },
-    ],
-    tip:"📸 小技巧：幫別人拍照後，對方通常會回拍，是認識新朋友的好機會！"
-  },
-  {
-    id:11, label:"問路", emoji:"🧭",
-    heroBg:"linear-gradient(135deg,#001020,#002550)",
-    tag:"導航 & 方向", title:"Day 11 — 問路導航",
-    desc:"就算 Google Maps 沒信號，英文問路也能帶你找到目的地。",
-    phrases:[
-      { en:"Excuse me, how do I get to the museum?", zh:"不好意思，怎麼去博物館？" },
-      { en:"Is it within walking distance?", zh:"走路可以到嗎？" },
-      { en:"Turn left at the traffic light.", zh:"在紅綠燈左轉。", note:"💡 turn right = 右轉" },
-      { en:"It's about a 10-minute walk.", zh:"走路大約10分鐘。" },
-      { en:"I think I'm lost.", zh:"我覺得我迷路了。" },
-    ],
-    tip:"🧭 小技巧：問路時重複確認 'So I go straight and then turn right?' 確保理解正確。"
-  },
-  {
-    id:12, label:"購物中心", emoji:"🛍️",
-    heroBg:"linear-gradient(135deg,#1f001f,#5c0050)",
-    tag:"購物 & 時尚", title:"Day 12 — 購物中心",
-    desc:"在百貨商場試穿、詢問尺寸和退換貨，樣樣難不倒你。",
-    phrases:[
-      { en:"Do you have this in a medium?", zh:"這個有中號嗎？" },
-      { en:"Can I try this on?", zh:"可以試穿嗎？" },
-      { en:"This is too tight. Do you have a bigger size?", zh:"這太緊了，有大一點的嗎？" },
-      { en:"Is this on sale?", zh:"這個有特價嗎？" },
-      { en:"Can I return this if it doesn't fit?", zh:"如果不合身可以退嗎？" },
-    ],
-    tip:"🛍️ 小技巧：退換貨要確認 'return policy'，通常需要保留收據和標籤。"
-  },
-  {
-    id:13, label:"銀行", emoji:"🏦",
-    heroBg:"linear-gradient(135deg,#001a00,#004400)",
-    tag:"金融 & 換匯", title:"Day 13 — 銀行換匯",
-    desc:"學會在銀行換外幣、查詢匯率，讓旅遊財務無後顧之憂。",
-    phrases:[
-      { en:"I'd like to exchange some currency.", zh:"我想換一些外幣。" },
-      { en:"What's the exchange rate today?", zh:"今天的匯率是多少？" },
-      { en:"I'd like to withdraw some cash.", zh:"我想提領一些現金。" },
-      { en:"Is there a transaction fee?", zh:"有手續費嗎？", note:"💡 transaction fee = 手續費" },
-      { en:"Can I use this card here?", zh:"這裡可以用這張卡嗎？" },
-    ],
-    tip:"💵 小技巧：換匯前先在 Google 查好即時匯率，才不會被坑！"
-  },
-  {
-    id:14, label:"緊急求助", emoji:"🆘",
-    heroBg:"linear-gradient(135deg,#1f0000,#5c0000)",
-    tag:"緊急 & 安全", title:"Day 14 — 緊急求助",
-    desc:"遇到突發狀況保持冷靜，幾句關鍵英文幫你度過危機。",
-    phrases:[
-      { en:"Help! Call the police!", zh:"救命！快叫警察！" },
-      { en:"I need a doctor immediately.", zh:"我需要立刻看醫生。" },
-      { en:"My wallet was stolen.", zh:"我的錢包被偷了。" },
-      { en:"I lost my passport.", zh:"我的護照遺失了。" },
-      { en:"Please call the Taiwanese consulate.", zh:"請聯絡台灣的領事館。", note:"💡 出國前記下當地台辦電話" },
-    ],
-    tip:"🆘 小技巧：出發前在手機存好當地緊急電話、台辦電話和保險公司電話！"
-  },
-  ...Array.from({length:35}, (_,i)=>{
-    const extra = [
-      {label:"早餐店",emoji:"🥐",heroBg:"linear-gradient(135deg,#1a0e00,#5c3800)",tag:"早晨 & 輕食",title:`Day ${15+i} — 早餐店`,desc:"一天的開始從一頓美味早餐開始，用英文點出你想要的早餐。",phrases:[{en:"What breakfast options do you have?",zh:"你們有哪些早餐選擇？"},{en:"Can I get a fried egg sandwich?",zh:"我可以點一個煎蛋三明治嗎？"},{en:"I'd like my eggs sunny-side up.",zh:"我的蛋要太陽蛋。",note:"💡 scrambled = 炒蛋, over easy = 半熟蛋"},{en:"Can I get a refill of coffee?",zh:"咖啡可以續杯嗎？"},{en:"Does this come with orange juice?",zh:"這個套餐有附柳橙汁嗎？"}],tip:"🥞 小技巧：早餐時間最輕鬆，趁機多開口點餐，英文自信心大幅提升！"},
-      {label:"計程車",emoji:"🚕",heroBg:"linear-gradient(135deg,#1a1000,#4a2800)",tag:"交通 & 出行",title:`Day ${15+i} — 計程車`,desc:"跳上計程車，用英文告知目的地和需求，輕鬆抵達。",phrases:[{en:"Take me to the airport, please.",zh:"請載我去機場。"},{en:"How long will it take?",zh:"要多久？"},{en:"Please turn on the meter.",zh:"請打錶。",note:"💡 meter = 計費表"},{en:"Keep the change.",zh:"不用找了。"},{en:"Could you drive more slowly?",zh:"可以開慢一點嗎？"}],tip:"🚕 小技巧：上車前先用地圖截圖目的地，展示給司機看更保險。"},
-      {label:"圖書館",emoji:"📚",heroBg:"linear-gradient(135deg,#001525,#003550)",tag:"學習 & 文化",title:`Day ${15+i} — 圖書館`,desc:"探訪當地圖書館，借閱書籍並感受不同文化的知識殿堂。",phrases:[{en:"Do I need a library card?",zh:"需要辦借書證嗎？"},{en:"Where is the English fiction section?",zh:"英文小說區在哪裡？"},{en:"How long can I borrow this book?",zh:"這本書可以借多久？"},{en:"Can I use the computers here?",zh:"可以使用這裡的電腦嗎？"},{en:"Is there a quiet study area?",zh:"有安靜的自習區嗎？"}],tip:"📖 小技巧：在圖書館找一本兒童英文書讀讀看，既有趣又能練習基礎詞彙！"},
-      {label:"夜市",emoji:"🌙",heroBg:"linear-gradient(135deg,#100020,#30006a)",tag:"美食 & 夜生活",title:`Day ${15+i} — 夜市探索`,desc:"夜幕低垂，走進熱鬧夜市，用英文介紹台灣美食文化。",phrases:[{en:"This is a night market, a Taiwanese street food tradition.",zh:"這是夜市，台灣的街頭小吃傳統。"},{en:"Have you tried bubble tea before?",zh:"你喝過珍珠奶茶嗎？"},{en:"This is spicy, be careful!",zh:"這個很辣，小心！",note:"💡 mild / medium / hot = 微辣/中辣/大辣"},{en:"How much for two portions?",zh:"兩份多少錢？"},{en:"It's delicious, you should try it!",zh:"很好吃，你應該嚐嚐！"}],tip:"🌙 小技巧：帶外國朋友逛夜市，邊吃邊用英文介紹，是最棒的文化交流！"},
-      {label:"公園",emoji:"🌳",heroBg:"linear-gradient(135deg,#001a00,#003d00)",tag:"休閒 & 自然",title:`Day ${15+i} — 公園休閒`,desc:"在城市公園放鬆身心，學習描述自然景觀的英文表達。",phrases:[{en:"What a beautiful park!",zh:"好美的公園！"},{en:"Is there a jogging trail nearby?",zh:"附近有慢跑步道嗎？"},{en:"Are dogs allowed in the park?",zh:"公園裡可以帶狗嗎？"},{en:"Is the park open all night?",zh:"公園整晚都開放嗎？"},{en:"Could you recommend a good picnic spot?",zh:"可以推薦一個好的野餐地點嗎？"}],tip:"🌳 小技巧：公園是練習描述環境和天氣的絕佳場所，邊走邊用英文自言自語！"},
-    ];
-    return extra[i % extra.length];
-  })
-];
+  let currentDayIdx = 0;
+  // SRS 資料格式: { "dayId-phraseEn": { nextReview: timestamp, interval: days } }
+  let srsData = JSON.parse(localStorage.getItem('aci_srs_data')) || {};
+  let dueFlashcards = [];
+  let flashIdx = 0;
+  let isFlipped = false;
+  // 📊 新增：用來記錄每一次 10 張番茄鐘的點擊數據
+  let sessionStats = { again: 0, hard: 0, good: 0, easy: 0 };
 
-// ─────────────────────────────────────────────
-//  STATE
-// ─────────────────────────────────────────────
-let current = 0;
-
-// ─────────────────────────────────────────────
-//  RENDER SIDEBAR
-// ─────────────────────────────────────────────
-function renderSidebar() {
-  const sidebar = document.getElementById('sidebar');
-  const weekLabels = ['Week 1 — 出發準備','Week 2 — 城市生活','Week 3 — 深度探索','Week 4 — 文化交流','Week 5 — 進階挑戰','Week 6 — 生活整合','Week 7 — 衝刺完賽'];
-  let html = '';
-  DAYS.forEach((day, idx) => {
-    const weekIdx = Math.floor(idx / 7);
-    if (idx % 7 === 0) {
-      html += `<div class="sidebar-section-label">${weekLabels[weekIdx] || `Week ${weekIdx+1}`}</div>`;
+  // 倒數計時計算
+  function updateHeader() {
+    const targetDate = new Date('2026-05-11T00:00:00');
+    const now = Date.now();
+    const diff = targetDate - now;
+    const daysLeft = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+    
+    if (daysLeft === 0) {
+      document.getElementById('countdown').innerText = `🚀 2026/05/11-16 曼谷 ACI 年會正式展開！`;
+    } else {
+      document.getElementById('countdown').innerText = `🚀 2026/05/11 曼谷 ACI 年會倒數：${daysLeft} 天`;
     }
-    html += `<button class="day-btn${idx===current?' active':''}" onclick="goTo(${idx})">
-      <span class="day-num">D${String(day.id).padStart(2,'0')}</span>
-      <span>${day.label}</span>
-    </button>`;
+  }
+
+
+  // 語音朗讀 API
+  function speak(text, event) {
+    if(event) event.stopPropagation(); // 避免點擊朗讀時觸發其他事件
+    window.speechSynthesis.cancel();
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'en-US';
+    msg.rate = 0.9;
+    window.speechSynthesis.speak(msg);
+  }
+
+  // 升級：計算需要複習的卡片，若無卡片會顯示「🆕 學習新進度」
+  function calculateDueCards() {
+    const now = Date.now();
+    let allDue = [];
+    let newCardsCount = 0;
+    if(typeof DAYS === 'undefined') return;
+
+    DAYS.forEach(d => {
+      d.phrases.forEach(p => {
+        const pId = `${d.id}-${p.en}`;
+        const record = srsData[pId];
+        if (record && record.nextReview <= now) {
+          allDue.push({ ...p, dayId: d.id, pId: pId, currentInterval: record.interval });
+        } else if (!record) {
+          newCardsCount++; 
+        }
+      });
+    });
+
+    const totalDue = allDue.length;
+    // 🛡️ 擷取前 10 張卡片進行本次測驗
+    dueFlashcards = allDue.length > 10 ? allDue.slice(0, 10) : allDue;
+
+    const srsBtn = document.getElementById('start-srs-btn');
+    if(totalDue === 0) {
+      if (newCardsCount > 0) {
+        srsBtn.classList.remove('disabled');
+        let displayNewCount = newCardsCount > 10 ? 10 : newCardsCount;
+        srsBtn.innerHTML = `🆕 學習新進度 (<span style="color:#fff;">${displayNewCount} / 共 ${newCardsCount}</span>)`;
+      } else {
+        srsBtn.classList.add('disabled');
+        srsBtn.innerHTML = `🎉 恭喜！全數攻略`;
+      }
+    } else {
+      srsBtn.classList.remove('disabled');
+      srsBtn.innerHTML = `🎴 SRS 總複習 (<span style="color:#fff;">本次 ${dueFlashcards.length} / 待複習 ${totalDue}</span>)`;
+    }
+  }
+
+  function playAudioSecure(element, event) {
+    if(event) event.stopPropagation();
+    const text = element.getAttribute('data-en');
+    speak(text, null); // 呼叫原有的發音 API
+  }
+
+  // 🛡️ 新增：自動從題庫中抽出 5 張「未學習」的新卡片
+  function pullNewCards(count = 5) {
+    let added = 0;
+    if(typeof DAYS === 'undefined') return 0;
+    
+    for(let d of DAYS) {
+      for(let p of d.phrases) {
+        const pId = `${d.id}-${p.en}`;
+        if(!srsData[pId]) {
+          // 找到新卡片，加入這次的複習佇列
+          dueFlashcards.push({ ...p, dayId: d.id, pId: pId, currentInterval: 0 });
+          // 將它正式寫入學習紀錄，設定為立刻複習
+          srsData[pId] = { nextReview: Date.now(), interval: 0 };
+          added++;
+          if(added >= count) break;
+        }
+      }
+      if(added >= count) break;
+    }
+    localStorage.setItem('aci_srs_data', JSON.stringify(srsData));
+    return added;
+  }
+
+  // 按鈕觸發：載入更多新卡片
+  function loadMoreNewCards(event) {
+    if(event) event.stopPropagation();
+    sessionStats = { again: 0, hard: 0, good: 0, easy: 0 }; // 重置統計
+    const added = pullNewCards(5);
+    if (added > 0) {
+      isFlipped = false; 
+      document.getElementById('end-nav').style.display = 'none';
+      updateFlashcard();
+    }
+  }
+
+  // 🛡️ 三段式狀態切換：未學習 ➕ -> 複習中 🔄 -> 已熟練 ✅
+  function toggleStateSecure(element, event) {
+    if(event) event.stopPropagation();
+    const pId = element.getAttribute('data-id');
+    const now = Date.now();
+    const record = srsData[pId];
+
+    if (!record) {
+      // 狀態 1 轉 2：未學習 -> 加入複習 (設定為立刻複習)
+      srsData[pId] = { nextReview: now, interval: 0 };
+    } else if (record.interval < 7) {
+      // 狀態 2 轉 3：複習中 -> 標記為已熟練 (設定間隔 7 天)
+      srsData[pId] = { nextReview: now + (7 * 24 * 60 * 60 * 1000), interval: 7 };
+    } else {
+      // 狀態 3 轉 1：已熟練 -> 退回未學習狀態
+      delete srsData[pId];
+    }
+
+    localStorage.setItem('aci_srs_data', JSON.stringify(srsData));
+    calculateDueCards();
+    renderMain();
+  }
+
+  /* ── SRS 字卡邏輯 ── */
+  function openFlashcards() {
+    sessionStats = { again: 0, hard: 0, good: 0, easy: 0 }; // 重置統計
+    calculateDueCards();
+    if (dueFlashcards.length === 0) {
+      const added = pullNewCards(5); 
+      if (added === 0) return; 
+    }
+    
+    flashIdx = 0;
+    isFlipped = false;
+    document.getElementById('flashcard-overlay').style.display = 'flex';
+    document.getElementById('srs-nav').style.display = 'none';
+    const endNav = document.getElementById('end-nav');
+    if(endNav) endNav.style.display = 'none';
+    updateFlashcard();
+  }
+
+  function closeFlashcards() {
+    document.getElementById('flashcard-overlay').style.display = 'none';
+    calculateDueCards();
+    renderMain();
+  }
+
+  function updateFlashcard() {
+    if (flashIdx >= dueFlashcards.length) {
+      const motivations = [
+        "太神啦！你的大腦又進化了一次！🧠",
+        "積沙成塔，離泰國 ACI 講台又更近了一步！✈️",
+        "超讚！少量多次是轉化為肌肉記憶的最佳途徑！☕"
+      ];
+      const randomMoti = motivations[Math.floor(Math.random() * motivations.length)];
+
+      // 📊 生成戰報 HTML
+      const statsHtml = `
+        <div style="background: rgba(0,0,0,0.25); padding: 15px 25px; border-radius: 15px; margin: 20px auto; font-size: 0.95rem; text-align: left; display: inline-block; border: 1px solid var(--border);">
+          <div style="color: #4a90e2; margin-bottom: 8px; font-weight: bold;">✅ 輕鬆秒殺 (Easy): ${sessionStats.easy} 次</div>
+          <div style="color: #3ec9c9; margin-bottom: 8px; font-weight: bold;">👍 表現不錯 (Good): ${sessionStats.good} 次</div>
+          <div style="color: #f5a623; margin-bottom: 8px; font-weight: bold;">🤔 稍微卡頓 (Hard): ${sessionStats.hard} 次</div>
+          <div style="color: #e8547a; font-weight: bold;">🔥 繼續努力 (Again): ${sessionStats.again} 次</div>
+        </div>
+      `;
+
+      document.getElementById('card-en').innerText = "🎉 本輪訓練達標！";
+      document.getElementById('card-zh').innerHTML = `${randomMoti}<br>${statsHtml}<br><span style="font-size:0.85rem; color:var(--text-muted);">大腦正在建立強大的神經連結！</span>`;
+      document.getElementById('card-zh').style.display = 'block';
+      document.getElementById('card-hint').style.display = 'none';
+      document.getElementById('card-count').innerText = `剩餘 0 張`;
+      document.getElementById('srs-nav').style.display = 'none';
+
+      let hasDue = false;
+      let hasNew = false;
+      const now = Date.now();
+      DAYS.forEach(d => d.phrases.forEach(p => { 
+        const rec = srsData[`${d.id}-${p.en}`];
+        if (rec && rec.nextReview <= now) hasDue = true; 
+        if (!rec) hasNew = true;
+      }));
+      
+      const endNav = document.getElementById('end-nav');
+      if(endNav) {
+        endNav.style.display = 'flex'; 
+        if(hasDue) {
+          endNav.innerHTML = `<button class="srs-btn good" onclick="closeFlashcards(); openFlashcards();" style="flex:none; padding:15px 30px; font-size:1.1rem;">🔥 繼續下一輪 (10張)</button>`;
+        } else if (hasNew) {
+          endNav.innerHTML = `<button class="srs-btn good" onclick="loadMoreNewCards(event)" style="flex:none; padding:15px 30px; font-size:1.1rem;">➕ 學習 5 句新進度</button>`;
+        } else {
+          endNav.innerHTML = `<button class="srs-btn easy" onclick="closeFlashcards()" style="flex:none; padding:15px 30px; font-size:1.1rem;">✅ 今日任務全數通關！</button>`;
+        }
+      }
+      return;
+    }
+    
+    const item = dueFlashcards[flashIdx];
+    document.getElementById('card-en').innerText = item.en;
+    document.getElementById('card-zh').innerText = item.zh;
+    document.getElementById('card-zh').style.display = isFlipped ? 'block' : 'none';
+    document.getElementById('card-hint').style.display = isFlipped ? 'none' : 'block';
+    
+    const remaining = dueFlashcards.length - flashIdx;
+    document.getElementById('card-count').innerText = `剩餘 ${remaining} 張`;
+    
+    document.getElementById('srs-nav').style.display = isFlipped ? 'flex' : 'none';
+    const endNav = document.getElementById('end-nav');
+    if(endNav) endNav.style.display = 'none';
+    
+    if (!isFlipped) speak(item.en, null);
+  }
+
+  function flipCard() {
+    if (isFlipped) return; 
+    isFlipped = true;
+    updateFlashcard();
+  }
+
+  function handleSRS(rating, event) {
+    event.stopPropagation();
+    const item = dueFlashcards[flashIdx];
+    let nextInterval = 0;
+
+    sessionStats[rating]++; // 📊 紀錄點擊了哪個按鈕
+
+    if (rating === 'again') nextInterval = 0;
+    else if (rating === 'hard') nextInterval = Math.max(1, item.currentInterval * 1.2);
+    else if (rating === 'good') nextInterval = Math.max(3, item.currentInterval === 0 ? 3 : item.currentInterval * 2.5);
+    else if (rating === 'easy') nextInterval = Math.max(7, item.currentInterval === 0 ? 7 : item.currentInterval * 3.5);
+
+    const now = Date.now();
+    const nextReviewTime = rating === 'again' ? now + 60000 : now + (nextInterval * 24 * 60 * 60 * 1000);
+
+    srsData[item.pId] = { nextReview: nextReviewTime, interval: nextInterval };
+    localStorage.setItem('aci_srs_data', JSON.stringify(srsData));
+
+    if (rating === 'again') dueFlashcards.push(item);
+
+    flashIdx++;
+    isFlipped = false;
+    updateFlashcard();
+  }
+
+  /* ── 渲染畫面 ── */
+  function renderSidebar() {
+    const list = document.getElementById('day-list');
+    list.innerHTML = DAYS.map((d, i) => `
+      <button class="day-item ${i === currentDayIdx ? 'active' : ''}" onclick="goTo(${i})">
+        <span style="font-size:0.7rem; opacity:0.7;">${d.date} | ${d.theme}</span>
+        <span style="font-size:0.9rem; margin-top:3px;">${d.emoji} Day ${d.id} - ${d.label}</span>
+      </button>
+    `).join('');
+  }
+
+  function renderMain() {
+    const container = document.getElementById('content-container');
+    const d = DAYS[currentDayIdx];
+    const now = Date.now();
+    
+    document.getElementById('current-theme-name').innerText = d.theme;
+    
+    container.innerHTML = `
+      <div style="margin-bottom: 35px;">
+        <h1 style="font-size: 2rem; margin-bottom:10px;">${d.title}</h1>
+        <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.6;">${d.desc}</p>
+      </div>
+      <div id="phrases-area">
+        ${d.phrases.map(p => {
+          const pId = `${d.id}-${p.en}`;
+          const record = srsData[pId];
+          
+          const safeDataEn = p.en.replace(/"/g, '&quot;');
+          const safeDataId = pId.replace(/"/g, '&quot;');
+          
+          let btnIcon = '➕';
+          let btnClass = '';
+          let btnStyle = '';
+          let btnTitle = '未學習 (點擊加入總複習)';
+          let cardClass = '';
+
+          // 🛡️ 修正：只有間隔天數 >= 7 天，才算是真正的「✅ 已熟練」
+          if (record) {
+            if (record.interval >= 7) {
+              btnIcon = '✅';
+              btnClass = 'active'; // 藍綠色
+              btnTitle = '已熟練 (點擊退回未學習)';
+              cardClass = 'mastered';
+            } else {
+              btnIcon = '🔄';
+              btnStyle = 'color: var(--accent); border-color: var(--accent);'; // 橘黃色
+              btnTitle = '複習中 (點擊直接標記熟練)';
+            }
+          }
+          
+          return `
+            <div class="phrase-card ${cardClass}">
+              <span class="scenario-badge">${p.scenario || '通用情境'}</span>
+              <div class="action-group">
+                <button class="icon-btn" onclick="playAudioSecure(this, event)" data-en="${safeDataEn}" title="聽發音">🔊</button>
+                <button class="icon-btn ${btnClass}" style="${btnStyle}" onclick="toggleStateSecure(this, event)" data-id="${safeDataId}" title="${btnTitle}">${btnIcon}</button>
+              </div>
+              <div class="phrase-en" onclick="playAudioSecure(this, event)" data-en="${safeDataEn}" style="cursor:pointer">${p.en}</div>
+              <div class="phrase-zh">${p.zh}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="nav-footer">
+        <button class="nav-btn" onclick="goTo(${currentDayIdx-1})" ${currentDayIdx === 0 ? 'disabled' : ''}>← 前一天</button>
+        <button class="nav-btn" onclick="goTo(${currentDayIdx+1})" ${currentDayIdx === DAYS.length-1 ? 'disabled' : ''}>後一天 →</button>
+      </div>
+    `;
+  }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= DAYS.length) return;
+    currentDayIdx = idx;
+    renderSidebar(); renderMain();
+    document.getElementById('main').scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateHeader();
+    if (typeof DAYS !== 'undefined' && DAYS.length > 0) {
+      calculateDueCards();
+      renderSidebar();
+      renderMain();
+    } else {
+      document.getElementById('content-container').innerHTML = `<h2 style="color:var(--accent);">⚠️ 找不到 data.js，請確認檔案已建立。</h2>`;
+    }
   });
-  sidebar.innerHTML = html;
-}
-
-// ─────────────────────────────────────────────
-//  RENDER MAIN
-// ─────────────────────────────────────────────
-function renderMain() {
-  const d = DAYS[current];
-  const main = document.getElementById('main');
-  main.innerHTML = `
-    <div class="scene-card">
-      <div class="scene-hero" style="--hero-bg:${d.heroBg}">
-        <span class="scene-emoji">${d.emoji}</span>
-      </div>
-      <div class="scene-body">
-        <div class="scene-tag">📍 ${d.tag}</div>
-        <h2 class="scene-title">${d.title}</h2>
-        <p class="scene-desc">${d.desc}</p>
-      </div>
-    </div>
-
-    <div class="phrases-card">
-      <div class="phrases-header">
-        <span class="phrases-icon">💬</span>
-        <span class="phrases-title">萬用句型 — 今日 ${d.phrases.length} 句</span>
-      </div>
-      <div class="phrase-list">
-        ${d.phrases.map(p=>`
-          <div class="phrase-item">
-            <div class="phrase-en">${p.en}</div>
-            <div class="phrase-zh">${p.zh}</div>
-            ${p.note ? `<div class="phrase-note">${p.note}</div>` : ''}
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="tips-card">
-      <div class="tips-label">✨ 今日學習小技巧</div>
-      <p class="tips-text">${d.tip}</p>
-    </div>
-
-    <div class="nav-footer">
-      <button class="nav-btn" onclick="goTo(${current-1})" ${current===0?'disabled':''}>← 前一天</button>
-      <span class="progress-pill"><span class="progress-fill">${current+1}</span> / 49</span>
-      <button class="nav-btn" onclick="goTo(${current+1})" ${current===48?'disabled':''}>後一天 →</button>
-    </div>
-  `;
-  main.scrollTo({ top:0, behavior:'smooth' });
-}
-
-// ─────────────────────────────────────────────
-//  NAVIGATION
-// ─────────────────────────────────────────────
-function goTo(idx) {
-  if (idx < 0 || idx >= DAYS.length) return;
-  current = idx;
-  renderSidebar();
-  renderMain();
-  // Scroll sidebar button into view
-  const btns = document.querySelectorAll('.day-btn');
-  btns[idx]?.scrollIntoView({ block:'nearest', behavior:'smooth' });
-}
-
-// ─────────────────────────────────────────────
-//  INIT
-// ─────────────────────────────────────────────
-renderSidebar();
-renderMain();
 </script>
 </body>
 </html>
