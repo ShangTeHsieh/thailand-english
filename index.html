@@ -6,6 +6,7 @@
   <title>2026 ACI 泰國年會：SRS 智能口說戰情室</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <script src="data.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
   <style>
     /* ── 基礎色彩與排版 ── */
     :root {
@@ -164,9 +165,9 @@
   /* ── 跨裝置同步邏輯 ── */
   function openSyncModal() {
     document.getElementById('sync-overlay').style.display = 'flex';
-    // 將目前的進度轉成 Base64 亂碼（看起來比較專業，也不容易貼錯）
     if (Object.keys(srsData).length > 0) {
-      const code = btoa(encodeURIComponent(JSON.stringify(srsData)));
+      // 🚀 修正：使用 LZString 進行深度壓縮，再轉成 Base64
+      const code = LZString.compressToBase64(JSON.stringify(srsData));
       document.getElementById('sync-code').value = code;
     } else {
       document.getElementById('sync-code').value = '';
@@ -199,7 +200,8 @@
     }
     try {
       // 解碼並覆蓋目前的紀錄
-      const decodedData = JSON.parse(decodeURIComponent(atob(code)));
+      // 🚀 修正：使用 LZString 將壓縮碼還原回原本的資料
+      const decodedData = JSON.parse(LZString.decompressFromBase64(code));
       srsData = decodedData;
       localStorage.setItem('aci_srs_data', JSON.stringify(srsData));
       
