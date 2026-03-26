@@ -102,6 +102,7 @@
       <div id="countdown" class="countdown-text">距離年會倒數計算中...</div>
     </div>
     <div class="btn-group">
+      <button class="mode-btn" style="background: var(--surface2); color: var(--text);" onclick="openSyncModal()">🔄 跨裝置同步</button>
       <button id="start-srs-btn" class="mode-btn" onclick="openFlashcards()">
         🎴 SRS 總複習 (<span id="due-count">0</span>)
       </button>
@@ -135,6 +136,21 @@
 
 </div>
 
+<div id="sync-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,14,23,0.95); z-index: 200; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px);">
+  <div style="background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 30px; width: 100%; max-width: 450px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+    <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 1.3rem;">🔄 跨裝置進度同步</h3>
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.5;">由於網頁無法自動寫入 GitHub 檔案，請透過「進度代碼」來轉移你的學習紀錄。</p>
+    
+    <textarea id="sync-code" style="width: 100%; height: 120px; background: var(--bg); color: var(--teal); border: 1px solid var(--border); border-radius: 12px; padding: 15px; margin-bottom: 20px; font-family: 'JetBrains Mono'; font-size: 0.85rem; word-break: break-all; resize: none;" placeholder="在此貼上你的進度代碼..."></textarea>
+    
+    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+      <button onclick="copySyncCode()" style="flex: 1; padding: 12px; background: var(--teal); color: var(--bg); border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">📋 1. 複製目前進度</button>
+      <button onclick="importSyncCode()" style="flex: 1; padding: 12px; background: var(--accent2); color: var(--text); border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">📥 2. 匯入上方代碼</button>
+    </div>
+    <button onclick="closeSyncModal()" style="width: 100%; padding: 10px; background: transparent; color: var(--text-muted); border: 1px solid var(--border); border-radius: 10px; cursor: pointer;">關閉</button>
+  </div>
+</div>
+
 <script>
   let currentDayIdx = 0;
   // SRS 資料格式: { "dayId-phraseEn": { nextReview: timestamp, interval: days } }
@@ -144,6 +160,58 @@
   let isFlipped = false;
   // 📊 新增：用來記錄每一次 10 張番茄鐘的點擊數據
   let sessionStats = { again: 0, hard: 0, good: 0, easy: 0 };
+
+  /* ── 跨裝置同步邏輯 ── */
+  function openSyncModal() {
+    document.getElementById('sync-overlay').style.display = 'flex';
+    // 將目前的進度轉成 Base64 亂碼（看起來比較專業，也不容易貼錯）
+    if (Object.keys(srsData).length > 0) {
+      const code = btoa(encodeURIComponent(JSON.stringify(srsData)));
+      document.getElementById('sync-code').value = code;
+    } else {
+      document.getElementById('sync-code').value = '';
+    }
+  }
+
+  function closeSyncModal() {
+    document.getElementById('sync-overlay').style.display = 'none';
+  }
+
+  function copySyncCode() {
+    const codeArea = document.getElementById('sync-code');
+    if (!codeArea.value) {
+      alert('⚠️ 目前沒有進度可以複製！');
+      return;
+    }
+    codeArea.select();
+    navigator.clipboard.writeText(codeArea.value).then(() => {
+      alert('✅ 進度代碼已複製！你可以傳到自己的 Line，稍後在其他裝置貼上匯入。');
+    }).catch(err => {
+      alert('❌ 複製失敗，請手動全選複製。');
+    });
+  }
+
+  function importSyncCode() {
+    const code = document.getElementById('sync-code').value.trim();
+    if (!code) {
+      alert('⚠️ 請先在上方框框貼上你的進度代碼！');
+      return;
+    }
+    try {
+      // 解碼並覆蓋目前的紀錄
+      const decodedData = JSON.parse(decodeURIComponent(atob(code)));
+      srsData = decodedData;
+      localStorage.setItem('aci_srs_data', JSON.stringify(srsData));
+      
+      calculateDueCards();
+      renderMain();
+      
+      alert('🎉 進度匯入成功！系統已更新為最新狀態。');
+      closeSyncModal();
+    } catch (e) {
+      alert('❌ 無效的代碼！請確認你複製的代碼完整無缺。');
+    }
+  }
 
   // 倒數計時計算
   function updateHeader() {
